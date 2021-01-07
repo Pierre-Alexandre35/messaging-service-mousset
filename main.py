@@ -6,20 +6,18 @@ from flask_bcrypt import Bcrypt
 from urllib.parse import urlparse, urljoin
 from twilio.rest import Client 
 import sys, os
-
-# Local imports
 from user import User, Anonymous
+import config
 
-# Create app
 app = Flask(__name__)
 
 # Configuration
-app.config['MONGO_DBNAME'] = 'xxx'
-app.config['MONGO_URI'] = 'mongodb+srv://xxx'
-app.secret_key = 'xxx'
+app.config['MONGO_DBNAME'] = config.db_name
+app.config['MONGO_URI'] = config.uri
+app.secret_key = config.secret
 
-account_sid = 'xxx' 
-auth_token = 'xxx' 
+account_sid = config.account_sid
+auth_token = config.auth_token
 client = Client(account_sid, auth_token)
 
 # Create Pymongo
@@ -44,13 +42,11 @@ db_test = mongo.db.customers
 @app.route("/campaigns", methods=['GET'])
 @login_required
 def campaigns():
-    log(current_user.is_authenticated)
     return render_template('campaigns.html')
     
     
 def contact(phone, message_body):
     international_number = "+33" + phone
-    print(international_number)
     client.messages.create( 
             from_='+33644647213',  
             body=message_body,      
@@ -82,13 +78,12 @@ def text_text(message):
         except Exception as e:
             errors = errors + 1 
             print(e)
-    return str(total_to_contact)
+    return render_template("result.html", errors=errors, success=success)
     
     
 @app.route("/launch-campaign", methods=['POST'])
 @login_required
 def call():
-    log(current_user.is_authenticated)
     message = request.form['body']
     selected_list = request.form['list']
     if selected_list == "client-list":
@@ -101,6 +96,7 @@ def delete_task(phone):
     to_delete = {'Phone': phone}
     try:
         db_operations.delete_one(to_delete)
+        db_test.delete_one(to_delete)
         return redirect("/clients")
     except Exception as e:
         return str(e)
@@ -110,12 +106,20 @@ def create():
     last_name = request.form['nom']
     first_name = request.form['prenom']
     phone = request.form['phone']
+    customer_type = request.form['customers-list'] 
     new_user = {'First Name' : first_name, 'Last Name': last_name, 'Phone' : phone}
-    try:
-        db_operations.insert_one(new_user)
-        return redirect("/clients")
-    except Exception as e:
-        return str(e)    
+    if customer_type == 'real':
+        try:
+            db_operations.insert_one(new_user)
+            return redirect("/clients")
+        except Exception as e:
+            return str(e) 
+    else:  
+        try:
+            db_test.insert_one(new_user)
+            return redirect("/test")
+        except Exception as e:
+            return str(e)   
     
 @app.route('/')
 def index():
@@ -202,7 +206,6 @@ def load_user(userid):
     users = mongo.db.users
     user = users.find_one({'id': userid}, {'_id' : 0 })
     if user:
-        log(user)
         return User(user['title'], user['first_name'], user['last_name'], user['email'], user['password'], user['id'])
     return None
 
@@ -221,10 +224,12 @@ def log(data):
 
 
 # Run app
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
+
+
+
+
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5005)
-
-
-
-
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))

@@ -8,7 +8,7 @@
   <meta name="description" content="Example web app using Flask">
   <meta name="author" content="Dr Chris Wilson">
 
-  <title>Login Example</title>
+  <title>Vetements Mousset</title>
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -25,7 +25,7 @@
 
   <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top">
     <!-- Brand -->
-    <a class="navbar-brand" href="/">Home</a>
+    <a class="navbar-brand" href="/">Acceuil</a>
 
     <!-- Toggler/collapsibe Button -->
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -37,14 +37,14 @@
       <ul class="navbar-nav">
           {% if current_user.is_authenticated %}
           <li class="nav-item">
-              <a class="nav-link" href="{{url_for('clients')}}">Clients</a>
+              <a class="nav-link" href="{{url_for('clients')}}">DB Clients</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('campaigns')}}">Campagnes D'appels</a>
+            <a class="nav-link" href="{{url_for('campaigns')}}">Nouvelle Campagne</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('test')}}">Test</a>
+          <a class="nav-link" href="{{url_for('test')}}">DB Test</a>
       </li>
           {% endif %}
       </ul>
@@ -52,11 +52,11 @@
       <ul class="navbar-nav ml-auto">
             {% if current_user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for('logout')}}">Logout</a>
+                <a class="nav-link" href="{{url_for('logout')}}">Déconnection</a>
             </li>
             {% else %}
             <li class="nav-item">
-            <a class="nav-link" href="{{url_for('login')}}">Login</a>
+            <a class="nav-link" href="{{url_for('login')}}">Connection</a>
             </li>
             <li class="nav-item">
             <a class="nav-link" href="{{url_for('register')}}">Sign Up</a>
