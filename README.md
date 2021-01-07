@@ -3,10 +3,7 @@
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Website shields.io](https://img.shields.io/website-up-down-green-red/http/shields.io.svg)](http://pierre-alexandre.io/)
-[![HitCount](http://hits.dwyl.com/Pierre-Alexandre35/Personal_Website.svg)](http://hits.dwyl.com/Pierre-Alexandre35/Personal_Website)
-<img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/Pierre-Alexandre35/Personal_website?color=red">
-<img alt="GitHub code version" src="https://img.shields.io/badge/version-2.0-pink">
+
 
 ## Description
 Platform to send text messages to individuals or groups of customers in 1 click.
