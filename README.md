@@ -4,6 +4,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CircleCI Status](https://circleci.com/gh/Pierre-Alexandre35/messaging-service-mousset.svg?style=shield&circle-token=:circle-token)](https://circleci.com/gh/Pierre-Alexandre35/messaging-service-mousset)
 
+[![codecov](https://codecov.io/gh/Pierre-Alexandre35/messaging-service-mousset/branch/main/graph/badge.svg?token=2O5LYO9M7G)](https://codecov.io/gh/Pierre-Alexandre35/messaging-service-mousset)
+
 
 ## Description
 Platform to send text messages to individuals or groups of customers in 1 click.
