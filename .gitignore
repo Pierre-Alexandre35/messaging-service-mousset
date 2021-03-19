@@ -3,3 +3,5 @@
 
 # virtualenv folder 
 dev/
+
+__pycache__
