@@ -19,12 +19,16 @@ We had to build a easy-to-use tool for them to let them text their customers in 
 ## Instalation 
 ```git clone```
 <br>
+
 ```virtualenv dev-env```
 <br>
+
 ```pip3 -r install requirements.txt```
 <br>
+
 ```export FLASK_APP=app.py```
 <br>
+
 ```flask run```
 
 
