@@ -16,7 +16,12 @@ My parents have a small retail business and they are storing informations about 
 
 We had to build a easy-to-use tool for them to let them text their customers in one click. 
 
-
+## Instalation 
+```git clone```
+```virtualenv dev-env```
+```pip3 -r install requirements.txt```
+```export FLASK_APP=app.py```
+```flask run```
 
 
 ## Architecture
