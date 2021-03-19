@@ -5,11 +5,14 @@ from flask_pymongo import PyMongo, pymongo
 from flask_bcrypt import Bcrypt
 from urllib.parse import urlparse, urljoin
 from twilio.rest import Client 
+from currency_converter import CurrencyConverter
 import sys, os
-from user import User, Anonymous
 import config
 
+
 app = Flask(__name__)
+
+from models.users import User, Anonymous
 
 # Configuration
 app.config['MONGO_DBNAME'] = config.db_name
@@ -26,6 +29,9 @@ mongo = PyMongo(app)
 # Create Bcrypt
 bc = Bcrypt(app)
 
+c = CurrencyConverter()
+
+
 # Create login manager
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -37,13 +43,22 @@ db_operations = mongo.db.clients
 # Customers == dummy
 db_test = mongo.db.customers
 
+db_users = mongo.db.users
+
 # ROUTES
+
 
 @app.route("/campaigns", methods=['GET'])
 @login_required
 def campaigns():
     return render_template('campaigns.html')
-    
+
+
+def get_current_credits():    
+    balance_data = client.api.v2010.balance.fetch()
+    balance = float(balance_data.balance)
+    currency = balance_data.currency
+    return balance, currency    
     
 def contact(phone, message_body):
     international_number = "+33" + phone
@@ -80,6 +95,13 @@ def text_text(message):
             print(e)
     return render_template("result.html", errors=errors, success=success)
     
+    
+@app.context_processor
+def inject_credit():
+    credit, currency = get_current_credits()
+    if currency != "EUR":
+        credit = c.convert(credit, currency, 'EUR')
+    return dict(credit=(round(credit,2)))
     
 @app.route("/launch-campaign", methods=['POST'])
 @login_required
