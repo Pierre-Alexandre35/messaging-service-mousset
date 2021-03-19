@@ -4,4 +4,6 @@
 # virtualenv folder 
 dev/
 
-__pycache__
+__pycache__/
+*.pyc
+
