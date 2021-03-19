@@ -1,5 +1,5 @@
 import pytest
 
 
-def pytest_addoption():
+def test_addoption():
     assert 1 == 1 

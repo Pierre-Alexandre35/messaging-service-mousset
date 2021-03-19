@@ -1,4 +1,8 @@
 version: 2.1
+
+orbs:
+  codecov: codecov/codecov@1.0.2
+
 jobs:
   run_tests:
     docker:
@@ -14,7 +18,7 @@ jobs:
       - run:
           name: Run unit tests
           command: |
-            pytest --html=tests/pytest_report.html --self-contained-html
+            pytest 
       - store_test_results:
           path: test-reports
 
