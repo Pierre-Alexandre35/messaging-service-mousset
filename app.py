@@ -5,6 +5,7 @@ from urllib.parse import urlparse, urljoin
 from twilio.rest import Client 
 import sys, os
 from blueprints.user import user
+from blueprints.texting import texting
 from extensions import login_manager, mongo, bc, c
 
 def create_app(settings_override=None):
@@ -24,6 +25,7 @@ def create_app(settings_override=None):
     error_templates(app)
 
     app.register_blueprint(user)
+    app.register_blueprint(texting)
     extensions(app)
     return app
 
@@ -65,7 +67,6 @@ def extensions(app):
     # Create login manager
     login_manager.init_app(app)
     mongo.init_app(app)
-
     # Create Pymongo
     bc.init_app(app)
     return None
