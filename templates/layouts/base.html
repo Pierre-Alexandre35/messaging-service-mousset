@@ -37,14 +37,14 @@
       <ul class="navbar-nav">
           {% if current_user.is_authenticated %}
           <li class="nav-item">
-              <a class="nav-link" href="{{url_for('clients')}}">DB Clients</a>
+              <a class="nav-link" href="{{url_for('user.clients')}}">DB Clients</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{url_for('campaigns')}}">Nouvelle Campagne</a>
+            <a class="nav-link" href="{{url_for('user.campaigns')}}">Nouvelle Campagne</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="{{url_for('test')}}">DB Test</a>
+          <a class="nav-link" href="{{url_for('user.test')}}">DB Test</a>
       </li>
           {% endif %}
       </ul>
@@ -55,15 +55,13 @@
               <a class="nav-link">{{credit}} €</a>
           </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{url_for('logout')}}">Déconnection</a>
+                <a class="nav-link" href="{{url_for('user.logout')}}">Déconnection</a>
             </li>
             {% else %}
             <li class="nav-item">
-            <a class="nav-link" href="{{url_for('login')}}">Connection</a>
+            <a class="nav-link" href="{{url_for('user.login')}}">Connection</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{{url_for('register')}}">Sign Up</a>
-            </li>
+
             {% endif %}
       </ul>
     </div>
