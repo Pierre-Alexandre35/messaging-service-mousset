@@ -6,7 +6,7 @@ from twilio.rest import Client
 import sys
 from urllib.parse import urlparse, urljoin
 from flask_pymongo import pymongo
-from config.settings import TWILIO_SID, TWILIO_TOKEN, customers_production, customers_test
+from config.settings import TWILIO_SID, TWILIO_TOKEN, customers_production, customers_test, users_collection
 
 user = Blueprint('user', __name__, template_folder='templates')
 login_manager.anonymous_user = Anonymous
