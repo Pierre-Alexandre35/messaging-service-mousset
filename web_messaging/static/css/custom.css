@@ -1,0 +1,18 @@
+body {
+    margin-top: 54px;
+}
+
+
+.container{
+   padding: 3rem;
+}
+
+.customer-form{
+    height: 100%;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+ }
+
+textarea{
+    border: 1px solid black !important;}

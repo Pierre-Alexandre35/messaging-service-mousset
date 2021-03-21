@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+{% block body %}
+<div class="container">
+        <form class="customer-form" action="/add-customer" method="POST">
+            <input  autocomplete="off" name="nom" type="text" placeholder="nom">
+            <input  autocomplete="off" name="prenom" type="text" placeholder="prenom">
+            <input  autocomplete="off" name="phone" type="phone" placeholder="telephone">
+            <select name="customers-list">
+                <option value="real">clients</option>
+                <option value="fake">test</option>
+              </select>
+            <input type="submit" value="ajouter">
+        </form>
+    <div class="row">
+        <div class="col-md-10 mx-md-auto pt-5">
+            <table class='table table-hover'>
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Téléphone</th>
+                        <th>Action</th>
+    
+                      </tr>
+                </thead>
+                <tbody>
+                    {% for n in customers %}
+                    <tr>
+                        <td>{{n['Last Name']}} </td> 
+
+                        <td>{{n['First Name']}}</td> 
+
+                        <td>{{ n['Phone']}}</td> 
+
+                       <td> <a href="/delete/{{ n['Phone'] }}">Supprimer</a> <td></td>
+                    </tr>                      
+                    {% endfor %}
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
