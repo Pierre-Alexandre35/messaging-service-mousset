@@ -21,3 +21,7 @@ SECRET_KEY = os.getenv('FLASK_SECRET')
 TWILIO_SID = os.getenv('TWILIO_SID')
 TWILIO_TOKEN = os.getenv('TWILIO_TOKEN')
 
+# Twilio segments 
+MAX_BYTES_PER_SEGMENT = 1200 # max size of a SMS is 140 octets -> 140 * 8bits = 1120 bits
+MAX_CARACTERS_PER_SEGMENT = 160 # max size of a SMS is 140 octets -> 140 * 8bits = 1120 bits
+COST_PER_SEGMENT = 0.076 # USD 

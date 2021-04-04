@@ -16,3 +16,9 @@ body {
 
 textarea{
     border: 1px solid black !important;}
+
+
+
+#message-cost-alert{
+    display: none;
+}

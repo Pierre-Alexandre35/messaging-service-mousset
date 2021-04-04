@@ -2,81 +2,38 @@ from flask import Blueprint, render_template, request, jsonify, redirect, url_fo
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from extensions import mongo, login_manager, c, bc
 from blueprints.user.models import User, Anonymous
-from twilio.rest import Client 
 import sys
 from urllib.parse import urlparse, urljoin
 from flask_pymongo import pymongo
-from config.settings import TWILIO_SID, TWILIO_TOKEN, customers_production, customers_test, users_collection
+from config.settings import customers_production, customers_test, users_collection, MAX_BYTES_PER_SEGMENT, COST_PER_SEGMENT, MAX_CARACTERS_PER_SEGMENT 
+import math
 
 user = Blueprint('user', __name__, template_folder='templates')
 login_manager.anonymous_user = Anonymous
 login_manager.login_view = "login"
-client = Client(TWILIO_SID, TWILIO_TOKEN)
 
+
+def total_cost_estimation(quantity, input_length):
+    number_of_segments = input_length / MAX_CARACTERS_PER_SEGMENT
+    estimated_cost_per_sms = math.ceil(number_of_segments) * COST_PER_SEGMENT
+    total_estimated_cost = estimated_cost_per_sms * quantity
+    return round(total_estimated_cost, 2)
+
+
+@user.route("/get_cost_estimation", methods=['GET', 'POST'])
+def get_cost_estimation():
+    input_length = request.json['input_length']
+    selected_list = request.json['selected_list']  
+    count = mongo.db[customers_test].count()
+    estimated_cost = total_cost_estimation(count, input_length)
+    return str(estimated_cost)
 
 @user.route("/campaigns", methods=['GET'])
 @login_required
 def campaigns():
-    return render_template('campaigns.html')
+    return render_template('campaigns.html', cost_per_sms = 0, max_caracters = MAX_CARACTERS_PER_SEGMENT)
 
-
-def get_current_credits():    
-    balance_data = client.api.v2010.balance.fetch()
-    balance = float(balance_data.balance)
-    currency = balance_data.currency
-    return balance, currency    
     
-def contact(phone, message_body):
-    international_number = "+33" + phone
-    client.messages.create( 
-            from_='+33757918166',  
-            body=message_body,      
-            to= international_number)
-    
-def text_customers(message):
-    collection = mongo.db[customers_test]
-    cursor = collection.find()
-    errors = 0
-    success = 0 
-    for customer in cursor:
-        try:
-            contact(customer['Phone'], message)
-            success = success + 1
-        except Exception as e:
-            errors = errors + 1 
-            print(e)
-    return str(cursor)
-
-def text_text(message):
-    collection = mongo.db[customers_test]
-    cursor = collection.find()
-    errors = 0
-    success = 0 
-    for customer in cursor:
-        try:
-            contact(customer['Phone'], message)
-            success = success + 1
-        except Exception as e:
-            errors = errors + 1 
-            print(e)
-    return render_template("result.html", errors=errors, success=success)
-    
-    
-@user.context_processor
-def inject_credit():
-    credit, currency = get_current_credits()
-    if currency != "EUR":
-        credit = c.convert(credit, currency, 'EUR')
-    return dict(credit=(round(credit,2)))
-    
-@user.route("/launch-campaign", methods=['POST'])
-@login_required
-def call():
-    message = request.form['body']
-    selected_list = request.form['list']
-    if selected_list == "client-list":
-        return text_customers(message)
-    return text_text(message)
 
 
 @user.route('/delete/<string:phone>')
@@ -185,7 +142,6 @@ def load_user(userid):
     if user:
         return User(user['title'], user['first_name'], user['last_name'], user['email'], user['password'], user['id'])
     return None
-
 
 
 # Safe URL

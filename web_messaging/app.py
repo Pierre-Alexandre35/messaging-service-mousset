@@ -6,7 +6,8 @@ from twilio.rest import Client
 import sys, os
 from blueprints.user import user
 from blueprints.texting import texting
-from extensions import login_manager, mongo, bc, c
+from extensions import login_manager, mongo, bc, currency_converter, twilio_client
+from context import inject_credit
 
 def create_app(settings_override=None):
     """
@@ -22,11 +23,12 @@ def create_app(settings_override=None):
 
     if settings_override:
         app.config.update(settings_override)
-    error_templates(app)
 
+    error_templates(app)
     app.register_blueprint(user)
     app.register_blueprint(texting)
     extensions(app)
+    configure_context_processors(app)
     return app
 
 def error_templates(app):
@@ -71,3 +73,8 @@ def extensions(app):
     bc.init_app(app)
     return None
 
+
+def configure_context_processors(app):
+    processors = [inject_credit]
+    for processor in processors:
+        app.context_processor(processor)
