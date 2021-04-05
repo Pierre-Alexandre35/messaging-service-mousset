@@ -24,20 +24,23 @@ def total_cost_estimation(quantity, input_length):
 
 @user.route("/get_cost_estimation", methods=['GET', 'POST'])
 def get_cost_estimation():
+    currency = '&euro;'
     input_length = request.json['input_length']
     selected_list = request.json['selected_list']  
     if selected_list == 'test-list':
         count = mongo.db[customers_test].count()
     else:
         count = mongo.db[customers_production].count()
-    print(count)
-    estimated_cost = total_cost_estimation(count, input_length)
-    return str(estimated_cost)
+    estimated_cost = str(total_cost_estimation(count, input_length))
+    return jsonify(
+        estimated_cost=estimated_cost,
+        currency=currency,
+    )
 
 @user.route("/campaigns", methods=['GET'])
 @login_required
 def campaigns():
-    return render_template('campaigns.html', cost_per_sms = 0, max_caracters = MAX_CARACTERS_PER_SEGMENT)
+    return render_template('campaigns.html', currency='€', cost_per_sms = 0, max_caracters = MAX_CARACTERS_PER_SEGMENT)
 
     
 

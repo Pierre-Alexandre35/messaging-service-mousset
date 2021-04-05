@@ -8,7 +8,6 @@ $(document).ready(function () {
 });
 
 function updateCost() {
-  console.log(123455784444)
   $.ajax({
     url: "/get_cost_estimation",
     type: "POST",
@@ -19,7 +18,8 @@ function updateCost() {
     contentType: "application/json; charset=utf-8",
     dataType: "json",
   }).done(function (data) {
-    document.getElementById("total-cost-value").innerHTML = data;
+    var newCost = data['estimated_cost'] + ' ' + data['currency'];
+    document.getElementById("total-cost-value").innerHTML = newCost
   });
 }
 
