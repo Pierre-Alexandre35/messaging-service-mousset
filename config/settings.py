@@ -21,7 +21,7 @@ TWILIO_SID = os.getenv('TWILIO_SID')
 TWILIO_TOKEN = os.getenv('TWILIO_TOKEN')
 
 # Mongo Collections
-customers_production = 'customers_test'
+customers_production = 'customers_production'
 customers_test = 'customers_test'
 users_collection = 'users'
 

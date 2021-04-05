@@ -14,8 +14,10 @@ login_manager.login_view = "login"
 
 
 def total_cost_estimation(quantity, input_length):
-    number_of_segments = input_length / MAX_CARACTERS_PER_SEGMENT
-    estimated_cost_per_sms = math.ceil(number_of_segments) * COST_PER_SEGMENT
+    number_of_segments = math.ceil(input_length / MAX_CARACTERS_PER_SEGMENT)
+    if number_of_segments < 1: 
+        number_of_segments = 1
+    estimated_cost_per_sms = number_of_segments * COST_PER_SEGMENT
     total_estimated_cost = estimated_cost_per_sms * quantity
     return round(total_estimated_cost, 2)
 
@@ -24,7 +26,11 @@ def total_cost_estimation(quantity, input_length):
 def get_cost_estimation():
     input_length = request.json['input_length']
     selected_list = request.json['selected_list']  
-    count = mongo.db[customers_test].count()
+    if selected_list == 'test-list':
+        count = mongo.db[customers_test].count()
+    else:
+        count = mongo.db[customers_production].count()
+    print(count)
     estimated_cost = total_cost_estimation(count, input_length)
     return str(estimated_cost)
 

@@ -12,13 +12,13 @@
               <legend class="col-form-label col-sm-2 pt-0">Liste</legend>
               <div class="col-sm-10">
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="list" id="gridRadios1" value="test-list" checked>
+                  <input class="form-check-input" onclick="updateList('test-list')" type="radio" name="list" id="gridRadios1" value="test-list" checked>
                   <label class="form-check-label" for="gridRadios1">
                     Test
                   </label>
                 </div>
                 <div class="form-check">
-                  <input class="form-check-input" type="radio" name="list" id="gridRadios2" value="client-list">
+                  <input class="form-check-input" onclick="updateList('production-list')" type="radio" name="list" id="gridRadios2" value="production-list">
                   <label class="form-check-label" for="gridRadios2">
                     Clients
                   </label>
@@ -42,7 +42,7 @@
             <div class="col-sm-2">Message</div>
             <div class="col-sm-10">
               <div class="form-check">
-                <textarea name="body" oninput="myFunction(this, {{max_caracters}})" id="form10" class="md-textarea form-control" rows="3"></textarea>
+                <textarea name="body" oninput="updateMessage(this, {{max_caracters}})" id="form10" class="md-textarea form-control" rows="3"></textarea>
           </div>
 
           <div id="message-cost-alert"class="alert alert-warning alert-dismissible fade show">
