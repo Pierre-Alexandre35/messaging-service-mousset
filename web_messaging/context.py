@@ -1,4 +1,4 @@
-from extensions import twilio_client, currency_converter
+from web_messaging.extensions import twilio_client, currency_converter
 
 def get_current_credits():
     try: 

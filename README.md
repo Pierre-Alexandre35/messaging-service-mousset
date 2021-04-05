@@ -49,3 +49,15 @@ We had to build a easy-to-use tool for them to let them text their customers in 
 
 https://github.com/chriswilson1982/flask-mongo-app
 https://github.com/punkdata/python-flask/blob/master/.circleci/config.yml
+
+
+gunicorn --workers=2 'web_messaging.app:create_app()'
+
+
+
+
+docker build -t helloworld .
+docker run -p 8000:8000 -it helloworld
+sudo docker stop $(sudo docker ps -aq)
+
+docker-compose up --build

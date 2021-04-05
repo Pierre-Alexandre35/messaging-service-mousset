@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from extensions import mongo, login_manager, c, bc
-from blueprints.user.models import User, Anonymous
+from web_messaging.extensions import mongo, login_manager, c, bc
+from web_messaging.blueprints.user.models import User, Anonymous
 import sys
 from urllib.parse import urlparse, urljoin
 from flask_pymongo import pymongo

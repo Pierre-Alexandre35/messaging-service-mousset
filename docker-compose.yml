@@ -1,0 +1,16 @@
+version: '2'
+
+services:
+  website:
+    build: .
+    command: >
+      gunicorn -b 0.0.0.0:8080
+        --access-logfile -
+        --reload
+        "web_messaging.app:create_app()"
+    environment:
+      PYTHONUNBUFFERED: 'true'
+    volumes:
+      - '.:/web_messaging'
+    ports:
+      - '8080:8080'
