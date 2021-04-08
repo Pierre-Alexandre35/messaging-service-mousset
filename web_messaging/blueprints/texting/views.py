@@ -15,8 +15,6 @@ def total_cost_estimation(quantity, input_length):
         number_of_segments = 1
     estimated_cost_per_sms = number_of_segments * COST_PER_SEGMENT
     total_estimated_cost = estimated_cost_per_sms * quantity
-    print(estimated_cost_per_sms)
-    print(quantity)
     return round(total_estimated_cost, 2)
 
 
@@ -86,16 +84,3 @@ def call():
     if selected_list == "client-list":
         return text_customers(message)
     return text_text(message)
-
-
-
-@texting.route("/cc")
-@login_required
-def cc():
-
-    records = twilio_client.messages.list(limit=20)
-    
-    for item in records:
-        print(item)
-    
-    return str(records)

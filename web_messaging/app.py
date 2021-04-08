@@ -6,6 +6,7 @@ from twilio.rest import Client
 import sys, os
 from web_messaging.blueprints.user import user
 from web_messaging.blueprints.texting import texting
+from web_messaging.blueprints.customers import customers
 from web_messaging.extensions import login_manager, mongo, bc, currency_converter, twilio_client
 from web_messaging.context import inject_credit
 import dns # required for connecting with SRV
@@ -29,6 +30,7 @@ def create_app(settings_override=None):
     error_templates(app)
     app.register_blueprint(user)
     app.register_blueprint(texting)
+    app.register_blueprint(customers)
     extensions(app)
     configure_context_processors(app)
     return app
