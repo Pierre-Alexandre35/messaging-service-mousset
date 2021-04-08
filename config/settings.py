@@ -29,4 +29,4 @@ users_collection = 'users'
 # Twilio segments 
 MAX_BYTES_PER_SEGMENT = 1200 # max size of a SMS is 140 octets -> 140 * 8bits = 1120 bits
 MAX_CARACTERS_PER_SEGMENT = 160 # max size of a SMS is 140 octets -> 140 * 8bits = 1120 bits
-COST_PER_SEGMENT = 0.076 # USD 
+COST_PER_SEGMENT = 0.064 #EUR or USD 0.076 

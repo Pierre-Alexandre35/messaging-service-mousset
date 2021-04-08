@@ -33,3 +33,6 @@ function updateMessage(body, SegmentCharactersLimit) {
     updateCost();
   }
 }
+
+- Added currency
+- Docker 

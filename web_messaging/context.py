@@ -1,6 +1,9 @@
 from web_messaging.extensions import twilio_client, currency_converter
 
-def get_current_credits():
+def get_twilio_credits():
+    """
+    get current Twilio balance amount 
+    """ 
     try: 
         balance_data = twilio_client.api.v2010.balance.fetch()
         balance = float(balance_data.balance)
@@ -10,7 +13,7 @@ def get_current_credits():
         return "Error 505"
 
 def inject_credit():
-    credits_response = get_current_credits()
+    credits_response = get_twilio_credits()
     if type(credits_response) is str:
         return dict(credit=credits_response)
     (credit, currency) = credits_response

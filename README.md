@@ -57,7 +57,7 @@ gunicorn --workers=2 'web_messaging.app:create_app()'
 
 
 docker build -t helloworld .
-docker run -p 8000:8000 -it helloworld
+docker run -p 8080:8080 -it helloworld
 sudo docker stop $(sudo docker ps -aq)
 
 docker-compose up --build
