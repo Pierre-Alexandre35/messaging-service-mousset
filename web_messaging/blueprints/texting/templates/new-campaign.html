@@ -1,0 +1,63 @@
+{% extends 'layouts/base.html' %}
+{% block body %}
+<div id="loading-box"><img src="{{ url_for('static', filename='images/ajax-loader.gif') }}" alt=""></div>
+<div class="container">
+    <h2>Choisissez votre message</h2>
+    <form name="sms-form" action="/launch-campaign" method="POST">
+        <div class="form-group row">
+          </div>
+          <div class="form-group row">
+          </div>
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Liste</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input class="form-check-input" onclick="updateList('test-list')" type="radio" name="list" id="gridRadios1" value="test-list" checked>
+                  <label class="form-check-label" for="gridRadios1">
+                    Test
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" onclick="updateList('production-list')" type="radio" name="list" id="gridRadios2" value="production-list">
+                  <label class="form-check-label" for="gridRadios2">
+                    Clients
+                  </label>
+                </div>
+            </div>
+          </fieldset>
+
+
+          <fieldset class="form-group">
+            <div class="row">
+              <legend class="col-form-label col-sm-2 pt-0">Coût</legend>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <p id="total-cost-value"></p>
+                </div>
+            </div>
+          </fieldset>
+
+
+          <div class="form-group row">
+            <div class="col-sm-2">Message</div>
+            <div class="col-sm-10">
+              <div class="form-check">
+                <textarea name="body" oninput="updateMessage(this, {{max_caracters}})" id="form10" class="md-textarea form-control" rows="3"></textarea>
+          </div>
+
+          <div id="message-cost-alert"class="alert alert-warning alert-dismissible fade show">
+            <strong>Attention!</strong> Votre message dépasse le nombre de {{max_caracters}} caracters
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+          </div>
+
+          <div class="form-group row">
+            <div class="col-sm-10">
+                <br>
+              <button type="submit" class="btn btn-primary" onclick="return confirm('Are you sure?')">Envoyer</button>
+            </div>
+          </div>
+    </form>
+</div>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/message-calculator.js') }}"></script>{% endblock %}

@@ -6,15 +6,24 @@ import sys, math
 from urllib.parse import urlparse, urljoin
 from config.settings import TWILIO_SID, TWILIO_TOKEN, customers_production, customers_test, users_collection, MAX_CARACTERS_PER_SEGMENT, COST_PER_SEGMENT
 from web_messaging.blueprints.texting.models import Campaign
-
+import time
 
 texting = Blueprint('texting', __name__, template_folder='templates')
 
 
-@texting.route("/n", methods=['GET'])
-def nn():
-    cp = Campaign("hello world")
-    return str(cp.dict())
+@texting.route("/tmp", methods=['GET'])
+def tmp():
+    cp1 = Campaign('ulysse est ggg', 'customers', '37.00', '457', '0')
+    time.sleep(3)
+    cp2 = Campaign('.....', 'test', '2.10', '3', '1')
+    cp3 = Campaign('NON', 'customers', '29.74', '357', '100')
+    time.sleep(5)
+    cp4 = Campaign('dfd', 'customers', '2.14', '4', '0')
+    mongo.db['campaigns'].insert_one(cp1.dict())
+    mongo.db['campaigns'].insert_one(cp2.dict())
+    mongo.db['campaigns'].insert_one(cp3.dict())
+    mongo.db['campaigns'].insert_one(cp4.dict())
+    return "d"
 
 
 def total_cost_estimation(quantity, input_length):
@@ -41,12 +50,18 @@ def get_cost_estimation():
         currency=currency,
     )
 
+@texting.route("/new-campaign", methods=['GET'])
+@login_required
+def new_campaign():
+    return render_template('new-campaign.html', currency='€', cost_per_sms = 0, max_caracters = MAX_CARACTERS_PER_SEGMENT)
+
 @texting.route("/campaigns", methods=['GET'])
 @login_required
 def campaigns():
-    return render_template('campaigns.html', currency='€', cost_per_sms = 0, max_caracters = MAX_CARACTERS_PER_SEGMENT)
+    collection = mongo.db['campaigns']
+    campaigns = collection.find()
+    return render_template('campaigns.html', campaigns=campaigns)
 
-  
 
 def contact(phone, message_body):
     international_number = "+33" + phone

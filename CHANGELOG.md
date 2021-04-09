@@ -36,3 +36,9 @@ function updateMessage(body, SegmentCharactersLimit) {
 
 - Added currency
 - Docker 
+
+8/04
+- Created a customers blueprints to interact with mongodb
+
+9/04
+- Added loading spinner during ajax call 
