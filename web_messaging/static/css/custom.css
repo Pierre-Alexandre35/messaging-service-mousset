@@ -4,7 +4,7 @@ body {
 
 
 .container{
-   padding: 3rem;
+   padding: 3rem;  
 }
 
 .customer-form{
@@ -21,4 +21,19 @@ textarea{
 
 #message-cost-alert{
     display: none;
+}
+
+
+
+#loading-box{
+    z-index: 2;
+    position: absolute;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    min-width: 100vw;
+    margin: auto;
 }

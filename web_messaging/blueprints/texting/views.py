@@ -2,12 +2,20 @@ from flask import Blueprint, render_template, request, jsonify, redirect, url_fo
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from web_messaging.blueprints.user.models import User, Anonymous
 from web_messaging.extensions import twilio_client, currency_converter, mongo, login_manager, c, bc
-import sys
+import sys, math
 from urllib.parse import urlparse, urljoin
 from config.settings import TWILIO_SID, TWILIO_TOKEN, customers_production, customers_test, users_collection, MAX_CARACTERS_PER_SEGMENT, COST_PER_SEGMENT
-import math
+from web_messaging.blueprints.texting.models import Campaign
+
 
 texting = Blueprint('texting', __name__, template_folder='templates')
+
+
+@texting.route("/n", methods=['GET'])
+def nn():
+    cp = Campaign("hello world")
+    return str(cp.dict())
+
 
 def total_cost_estimation(quantity, input_length):
     number_of_segments = math.ceil(input_length / MAX_CARACTERS_PER_SEGMENT)

@@ -8,8 +8,23 @@ $(document).ready(function () {
   updateCost();
 });
 
+
+$body = $(".loader");
+
+
+function toggleLoadingSpinner(mode){
+  var loadingBox = document.getElementById("loading-box")
+  if(mode == 'on'){
+    loadingBox.style.display = 'flex';
+  } else {
+    loadingBox.style.display = 'none';
+  }
+}
+
+
 // call the get_cost_estimation to update the price 
 function updateCost() {
+  toggleLoadingSpinner('on')
   $.ajax({
     url: "/get_cost_estimation",
     type: "POST",
@@ -22,6 +37,7 @@ function updateCost() {
   }).done(function (data) {
     var newCost = data['estimated_cost'] + ' ' + data['currency'];
     document.getElementById("total-cost-value").innerHTML = newCost
+    toggleLoadingSpinner('off')
   });
 }
 
