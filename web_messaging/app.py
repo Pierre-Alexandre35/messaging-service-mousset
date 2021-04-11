@@ -2,14 +2,24 @@
 from flask import Flask, render_template, request, url_for, request, redirect, abort
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from urllib.parse import urlparse, urljoin
-from twilio.rest import Client 
-import sys, os
 from web_messaging.blueprints.user import user
 from web_messaging.blueprints.texting import texting
 from web_messaging.blueprints.customers import customers
+from web_messaging.blueprints.billing import billing
 from web_messaging.extensions import login_manager, mongo, bc, currency_converter, twilio_client
 from web_messaging.context import inject_credit
 import dns # required for connecting with SRV
+from config.settings import FLASK_SECRET, TWILIO_TOKEN
+
+
+
+def register_blueprints(app):
+    app.register_blueprint(user)
+    app.register_blueprint(texting)
+    app.register_blueprint(customers)
+    app.register_blueprint(billing)
+    return app
+
 
 def create_app(settings_override=None):
     """
@@ -19,7 +29,6 @@ def create_app(settings_override=None):
     :return: Flask app
     """
     app = Flask(__name__, instance_relative_config=True)
-
     app.config.from_object('config.settings')
     app.config.from_pyfile('settings.py', silent=True)
     app.config['MONGO_URI'] = app.config.get('MONGO_URI')
@@ -28,9 +37,7 @@ def create_app(settings_override=None):
         app.config.update(settings_override)
 
     error_templates(app)
-    app.register_blueprint(user)
-    app.register_blueprint(texting)
-    app.register_blueprint(customers)
+    app = register_blueprints(app)
     extensions(app)
     configure_context_processors(app)
     return app

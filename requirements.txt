@@ -26,3 +26,5 @@ python-dotenv
 currencyconverter
 pytest
 Flask-MongoAlchemy==0.7.1
+google-cloud
+google-cloud-storage

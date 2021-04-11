@@ -2,7 +2,6 @@ import os
 from dotenv import load_dotenv
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
 
-
 load_dotenv(os.path.join(BASEDIR, '.env'))
 
 DEBUG = True
@@ -25,8 +24,11 @@ customers_production = 'customers_production'
 customers_test = 'customers_test'
 users_collection = 'users'
 
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "config/gcp.json"
+UPLOAD_FOLDER = 'tmp/'
+GCS_BILLING_BUCKET = 'twilio-billing'
 
 # Twilio segments 
 MAX_BYTES_PER_SEGMENT = 1200 # max size of a SMS is 140 octets -> 140 * 8bits = 1120 bits
-MAX_CARACTERS_PER_SEGMENT = 160 # max size of a SMS is 140 octets -> 140 * 8bits = 1120 bits
+MAX_CHARACTERS_PER_SEGMENT = 160 # max size of a SMS is 140 octets -> 140 * 8bits = 1120 bits
 COST_PER_SEGMENT = 0.064 #EUR or USD 0.076 
