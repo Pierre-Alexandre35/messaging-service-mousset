@@ -14,9 +14,7 @@
               </div>
                 <button type="submit" class="btn btn-primary btn-block">Log In</button>
             </form>
-
             {% if current_user.is_authenticated %}
-
                 <div>
                     <a class="btn btn-danger" href="{{ url_for('user.logout') }}">Logout</a>
                 </div>

@@ -1,7 +1,10 @@
+/***************
+ * New Messaging Campaign - blueprints/texting *
+ ***************/
+
 body {
     margin-top: 54px;
 }
-
 
 .container{
    padding: 3rem;  
@@ -17,14 +20,11 @@ body {
 textarea{
     border: 1px solid black !important;}
 
-
-
 #message-cost-alert{
     display: none;
 }
 
-
-
+/* loading spinner during AJAX call for cost estimations back-end calls */
 #loading-box{
     z-index: 2;
     position: absolute;

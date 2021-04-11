@@ -5,6 +5,7 @@ import os
 
 
 def upload_file_to_temporary_folder(file):
+    """ Upload a file to a local storage """
     filename = file.filename
     file_local_path = os.path.join(UPLOAD_FOLDER, filename)
     try:
@@ -15,7 +16,7 @@ def upload_file_to_temporary_folder(file):
 
 
 def upload_file_to_gcp(source_file_name, destination_blob_name):
-    """Uploads a file to the bucket."""
+    """ Upload a file to a GCS bucket """
     # source_file_name = "local/path/to/file"
     # destination_blob_name = "storage-object-name"
 

@@ -7,11 +7,10 @@ from config.settings import customers_production, customers_test
 
 customers = Blueprint('customers', __name__, template_folder='templates')
 
-
-
 @customers.route('/test', methods=['GET'])
 @login_required
 def test():
+    """ Testing customers list overview page """
     #if current_user.id:
     collection = mongo.db[customers_test]
     cursor = collection.find()
@@ -21,15 +20,15 @@ def test():
 @customers.route('/clients', methods=['GET'])
 @login_required
 def clients():
-    #if current_user.id:
+    """ Client customers list overview page """
     collection = mongo.db[customers_production]
     cursor = collection.find()
     customers = cursor.sort("Last Name", pymongo.ASCENDING)
     return render_template("clients.html", customers=customers)
 
-
 @customers.route('/delete/<string:phone>')
 def delete_task(phone):
+    """ TO FIX  """
     to_delete = {'Phone': phone}
     try:
         mongo.db[customers_test].delete_one(to_delete)
@@ -39,6 +38,7 @@ def delete_task(phone):
 
 @customers.route('/add-customer', methods=['POST'])
 def create():
+    """ Create a new User object and insert that new user on the database """
     last_name = request.form['nom']
     first_name = request.form['prenom']
     phone = request.form['phone']
@@ -50,11 +50,11 @@ def create():
             collection.insert_one(new_user)
             return redirect("/clients")
         except Exception as e:
-            return str(e) 
+            return str(e)
     else:  
         try:
             collection = mongo.db[customers_test]
             collection.insert_one(new_user)
             return redirect("/test")
         except Exception as e:
-            return str(e)   
+            return str(e)

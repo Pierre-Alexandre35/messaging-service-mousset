@@ -1,4 +1,3 @@
-# Module imports
 from flask import Flask, render_template, request, url_for, request, redirect, abort
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from urllib.parse import urlparse, urljoin
@@ -11,20 +10,17 @@ from web_messaging.context import inject_credit
 import dns # required for connecting with SRV
 from config.settings import FLASK_SECRET, TWILIO_TOKEN
 
-
-
 def register_blueprints(app):
+    """ Register blueprints """ 
     app.register_blueprint(user)
     app.register_blueprint(texting)
     app.register_blueprint(customers)
     app.register_blueprint(billing)
     return app
 
-
 def create_app(settings_override=None):
-    """
+    """ 
     Create a Flask application using the app factory pattern.
-
     :param settings_override: Override settings
     :return: Flask app
     """
@@ -35,7 +31,6 @@ def create_app(settings_override=None):
     app.secret_key= app.config.get('FLASK_SECRET')
     if settings_override:
         app.config.update(settings_override)
-
     error_templates(app)
     app = register_blueprints(app)
     extensions(app)
@@ -43,40 +38,19 @@ def create_app(settings_override=None):
     return app
 
 def error_templates(app):
-    """
-    Register 0 or more custom error pages (mutates the app passed in).
-
-    :param app: Flask application instance
-    :return: None
-    """
-
+    """ Register 0 or more custom error pages (mutates the app passed in) """
     def render_status(status):
-        """
-         Render a custom template for a specific status.
-           Source: http://stackoverflow.com/a/30108946
-
-         :param status: Status as a written name
-         :type status: str
-         :return: None
-         """
+        """ Render a custom template for a specific status http://stackoverflow.com/a/30108946 """
         # Get the status code from the status, default to a 500 so that we
         # catch all types of errors and treat them as a 500.
         code = getattr(status, 'code', 500)
         return render_template('errors/{0}.html'.format(code)), code
-
     for error in [404, 429, 500]:
         app.errorhandler(error)(render_status)
-
     return None
 
-
 def extensions(app):
-    """
-    Register 0 or more extensions (mutates the app passed in).
-
-    :param app: Flask application instance
-    :return: None
-    """
+    """ Register 0 or more extensions (mutates the app passed in) """
     # Create login manager
     login_manager.init_app(app)
     mongo.init_app(app)
@@ -84,8 +58,8 @@ def extensions(app):
     bc.init_app(app)
     return None
 
-
 def configure_context_processors(app):
+    """ Inject processors on the app context processor to be rendered by template layers"""
     processors = [inject_credit]
     for processor in processors:
         app.context_processor(processor)

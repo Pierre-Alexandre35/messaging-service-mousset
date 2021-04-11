@@ -6,21 +6,21 @@ from web_messaging.blueprints.billing.storage import upload_file_to_temporary_fo
 
 billing = Blueprint('billing', __name__, template_folder='templates')
 
-
 @billing.route("/billing", methods=['GET'])
 @login_required
 def bills():
+    """ Billing overview page """
     '''
     bucket = gcp_storage.get_bucket('twilio-billing')
     for blob in bucket.list_blobs(prefix=''):
         print(blob)
     '''
     return render_template("billing.html")
-
     
 @billing.route("/upload-bill", methods = ['POST', 'GET'])
 @login_required
 def upload_bills():
+    """ Upload a new bill to the GCS """
     if request.method == 'POST':
         if 'file' not in request.files:
             return 'No file part'
