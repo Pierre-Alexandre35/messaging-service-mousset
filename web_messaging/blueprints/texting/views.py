@@ -1,12 +1,13 @@
 from flask import Blueprint, render_template, request, jsonify, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from web_messaging.blueprints.user.models import User, Anonymous
-from web_messaging.extensions import twilio_client, currency_converter, mongo, login_manager, c, bc
+from web_messaging.extensions import twilio_client, currency_converter, mongo, login_manager, bc
 import sys, math, time
 from urllib.parse import urlparse, urljoin
 from config.settings import TWILIO_SID, TWILIO_TOKEN, UPLOAD_FOLDER, customers_production, customers_test, users_collection, MAX_CHARACTERS_PER_SEGMENT, COST_PER_SEGMENT
 from web_messaging.blueprints.texting.models import Campaign
 from web_messaging.context import get_twilio_credits
+import traceback
 
 texting = Blueprint('texting', __name__, template_folder='templates')
 
@@ -31,6 +32,7 @@ def new_campaign():
     """ Form to create a new campaign """
     return render_template('new-campaign.html', currency='€', cost_per_sms = 0, max_characters = MAX_CHARACTERS_PER_SEGMENT)
 
+
 @texting.route("/campaigns", methods=['GET'])
 @login_required
 def campaigns():
@@ -38,6 +40,7 @@ def campaigns():
     collection = mongo.db['campaigns']
     campaigns = collection.find()
     return render_template('campaigns.html', campaigns=campaigns)
+
 
 @texting.route("/get_cost_estimation", methods=['GET', 'POST'])
 def get_cost_estimation():
@@ -85,13 +88,12 @@ def text_customers(message):
     errors = 0
     success = 0 
     for customer in cursor:
-        print(1111111111)
         try:
             contact(customer['Phone'], message)
             success = success + 1
-        except Exception as e:
+        except:
             errors = errors + 1 
-            print(e)
+            print(traceback.format_exc())
     return str(cursor)
 
 def text_text(message):

@@ -63,3 +63,4 @@ def configure_context_processors(app):
     processors = [inject_credit]
     for processor in processors:
         app.context_processor(processor)
+        

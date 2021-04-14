@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, jsonify, redirect, url_fo
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from web_messaging.blueprints.user.models import User, Anonymous
 from flask_pymongo import pymongo
-from web_messaging.extensions import mongo, login_manager, c, bc
+from web_messaging.extensions import mongo, login_manager, bc
 from config.settings import customers_production, customers_test
 
 customers = Blueprint('customers', __name__, template_folder='templates')

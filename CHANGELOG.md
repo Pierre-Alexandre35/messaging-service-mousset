@@ -42,3 +42,15 @@ function updateMessage(body, SegmentCharactersLimit) {
 
 9/04
 - Added loading spinner during ajax call 
+
+
+
+TODO
+- Add NULL for campaigns cost
+- Button refresh sur campaigns 
+
+- GCS FS .ls: passer les fichiers depuis le back-end
+
+- Signed URL generated from the back-end
+
+- Avoir  multiple .env (prod, test, etc)

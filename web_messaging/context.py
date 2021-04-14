@@ -19,3 +19,4 @@ def inject_credit():
     if currency != "EUR":
         credit = currency_converter.convert(credit, currency, 'EUR')
     return dict(credit=(round(credit,2)))
+

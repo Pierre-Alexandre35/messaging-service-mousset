@@ -47,6 +47,9 @@ We had to build a easy-to-use tool for them to let them text their customers in 
 - Stronger forms validators to add a new customer 
 
 
+# Tout ce qui va changer dun environmenet a lautre --> .env et tout ce qui est fixe setting
+
+
 https://github.com/chriswilson1982/flask-mongo-app
 https://github.com/punkdata/python-flask/blob/master/.circleci/config.yml
 
