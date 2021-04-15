@@ -43,6 +43,9 @@ function updateMessage(body, SegmentCharactersLimit) {
 9/04
 - Added loading spinner during ajax call 
 
+15/04
+- Blling GCS
+
 
 
 TODO

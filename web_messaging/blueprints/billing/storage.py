@@ -1,17 +1,8 @@
 
 from web_messaging.extensions import gcp_storage
 from config.settings import UPLOAD_FOLDER, GCS_BILLING_BUCKET
-import os 
+import os
 
-
-'''
-def retrieve_files_from_bucket():
-    bucket = gcp_storage.get_bucket(GCS_BILLING_BUCKET)
-    files = []
-    for blob in bucket.list_blobs(prefix=''):
-        files.append(blob)
-    return files
-'''
 
 def retrieve_file_from_bucket(filename):
     bucket = gcp_storage.get_bucket(GCS_BILLING_BUCKET)
@@ -40,7 +31,6 @@ def upload_file_to_gcp(source_file_name, destination_blob_name):
     """ Upload a file to a GCS bucket """
     # source_file_name = "local/path/to/file"
     # destination_blob_name = "storage-object-name"
-
     bucket = gcp_storage.bucket(GCS_BILLING_BUCKET)
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_filename(source_file_name)

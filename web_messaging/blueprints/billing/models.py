@@ -3,7 +3,6 @@ from datetime import datetime
 from web_messaging.extensions import twilio_client, currency_converter
 from web_messaging.blueprints.billing.storage import upload_file_to_temporary_folder, upload_file_to_gcp, delete_file_from_temporary_folder
 
-
 class Bill():
     
     def __init__(self, date, total_cost_usd, file, path_to_gcs=None):
@@ -15,7 +14,6 @@ class Bill():
         self.path_to_gcs = path_to_gcs
         self.set_total_cost_eur()
         
-        
     def dict(self):
         return {
         "date" : self.date,
@@ -25,11 +23,9 @@ class Bill():
         "path_to_gcs" : self.path_to_gcs
         }
         
-        
     def set_total_cost_eur(self):
         total_cost_eur = self.total_cost_usd * 0.85
         self.total_cost_eur =  total_cost_eur
-    
     
     def upload_to_gcs(self):
         local_path = upload_file_to_temporary_folder(self.file, self.filename)
@@ -37,9 +33,3 @@ class Bill():
         self.path_to_gcs = gcs_file_path
         delete_file_from_temporary_folder(local_path)
         return gcs_file_path
-
-    
-    '''
-    def get_bill_id(self):
-        _id = collection.insert({"name": "tyler"}) 
-    '''
