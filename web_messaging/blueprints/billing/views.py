@@ -10,11 +10,12 @@ from flask_pymongo import pymongo
 billing = Blueprint('billing', __name__, template_folder='templates')
 
 
+#db.oldname.rename('newname')
 
 @billing.route("/billing/<filename>", methods=['GET'])
 @login_required
 def d(filename):
-    path = f"tmp/{filename}"
+    path = retrieve_file_from_bucket(filename)
     return send_file(path, as_attachment=True)
 
 

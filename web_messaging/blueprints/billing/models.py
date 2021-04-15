@@ -1,7 +1,7 @@
 import itertools
 from datetime import datetime
 from web_messaging.extensions import twilio_client, currency_converter
-from web_messaging.blueprints.billing.storage import upload_file_to_temporary_folder, upload_file_to_gcp
+from web_messaging.blueprints.billing.storage import upload_file_to_temporary_folder, upload_file_to_gcp, delete_file_from_temporary_folder
 
 
 class Bill():
@@ -35,6 +35,7 @@ class Bill():
         local_path = upload_file_to_temporary_folder(self.file, self.filename)
         gcs_file_path = upload_file_to_gcp(local_path, self.filename)
         self.path_to_gcs = gcs_file_path
+        delete_file_from_temporary_folder(local_path)
         return gcs_file_path
 
     

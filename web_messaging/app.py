@@ -26,7 +26,6 @@ def create_app(settings_override=None):
     """
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object('config.settings')
-    app.config.from_pyfile('settings.py', silent=True)
     app.config['MONGO_URI'] = app.config.get('MONGO_URI')
     app.secret_key= app.config.get('FLASK_SECRET')
     if settings_override:
