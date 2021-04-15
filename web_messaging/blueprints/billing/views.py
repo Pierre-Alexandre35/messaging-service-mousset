@@ -14,8 +14,8 @@ billing = Blueprint('billing', __name__, template_folder='templates')
 @billing.route("/billing/<filename>", methods=['GET'])
 @login_required
 def d(filename):
-    file_path = retrieve_file_from_bucket(filename)
-    return send_file(file_path)
+    path = f"tmp/{filename}"
+    return send_file(path, as_attachment=True)
 
 
 @billing.route("/billing", methods=['GET'])

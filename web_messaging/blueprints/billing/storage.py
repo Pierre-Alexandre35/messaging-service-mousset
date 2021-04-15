@@ -16,7 +16,7 @@ def retrieve_files_from_bucket():
 def retrieve_file_from_bucket(filename):
     bucket = gcp_storage.get_bucket(GCS_BILLING_BUCKET)
     blob = bucket.blob(filename)
-    file_local_path = os.path.join(UPLOAD_FOLDER, filename)
+    file_local_path = os.path.join(UPLOAD_FOLDER + filename)
     blob.download_to_filename(file_local_path)
     return file_local_path
 
