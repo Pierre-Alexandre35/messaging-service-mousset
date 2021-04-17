@@ -1,5 +1,6 @@
 # passwords and tokens 
 **.env
+**/gcp.json
 
 # virtualenv folder 
 dev/
