@@ -2,16 +2,17 @@ import os
 from dotenv import load_dotenv
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
-load_dotenv(os.path.join(BASEDIR, '.env'))
+load_dotenv(os.path.join(BASEDIR, 'environments/demo.env'))
 
 # Flask settings 
 DEBUG = True
 PYTHONDONTWRITEBYTECODE=1
+FLASK_SECRET = os.getenv('FLASK_SECRET')
 
 # Twilio - Credentials
-FLASK_SECRET = os.getenv('FLASK_SECRET')
 TWILIO_SID = os.getenv('TWILIO_SID')
 TWILIO_TOKEN = os.getenv('TWILIO_TOKEN')
+TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER')
 
 # Twilio - Segments 
 MAX_BYTES_PER_SEGMENT = 1200 # max size of a SMS is 140 octets -> 140 * 8bits = 1120 bits

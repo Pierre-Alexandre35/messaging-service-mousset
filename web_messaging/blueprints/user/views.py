@@ -69,22 +69,21 @@ def is_safe_url(target):
 def log(data):
     print(repr(data), file=sys.stdout)
 
-'''
+
 @user.route('/register', methods=['POST', 'GET'])
 def register():
     if request.method == 'POST':
-        users = mongo.db[users_collection]
-        existing_user = users.find_one({'email' : request.form['email']}, {'_id' : 0 })
-
-        if existing_user is None:
-            logout_user()
-            hashpass = bc.generate_password_hash(request.form['pass']).decode('utf-8')
-            new_user = User(request.form['title'], request.form['first_name'], request.form['last_name'], request.form['email'], hashpass)
-            login_user(new_user)
-            users.insert_one(new_user.dict())
-            return redirect(url_for('profile'))
-
-        return 'That email already exists!'
-
+        print(request.form['title'])
+        print(request.form['first_name'])
+        print(request.form['last_name'])
+        print(request.form['email'])
+        print(request.form['pass'])
+        hashpass = bc.generate_password_hash(request.form['pass']).decode('utf-8')
+        new_user = User(request.form['title'], request.form['first_name'], request.form['last_name'], request.form['email'], hashpass)
+        try: 
+            mongo.db['users'].insert_one(new_user.dict())
+        except Exception as e:
+            return str(e)
+        return 'ok'
     return render_template('register.html')
-'''
+

@@ -1,0 +1,33 @@
+{% extends 'layouts/base.html' %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 mx-md-auto">
+            <form method="POST" action="{{ url_for('user.register', next=request.args.get('next')) }}">
+                <div class="form-group">
+                    <label for="exampleInputPassword">First Name</label>
+                    <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword">Last Name</label>
+                    <input type="text" class="form-control" name="last_name" placeholder="Last name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword">Title</label>
+                    <input type="text" class="form-control" name="title" placeholder="Title">
+                </div>
+              <div class="form-group mt-5">
+                  <label for="exampleInputEmail">Email address</label>
+                  <input type="text" class="form-control" name="email" placeholder="Email">
+              </div>
+              <div class="form-group">
+                  <label for="exampleInputPassword">Password</label>
+                  <input type="password" class="form-control" name="pass" placeholder="Password">
+              </div>
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

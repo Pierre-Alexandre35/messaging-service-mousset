@@ -2,29 +2,20 @@ from flask import Blueprint, render_template, request, jsonify, redirect, url_fo
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from web_messaging.blueprints.user.models import User, Anonymous
 from web_messaging.extensions import twilio_client, currency_converter, mongo, login_manager, bc
-import sys, math, time
+import sys, math, time, traceback
 from urllib.parse import urlparse, urljoin
-from config.settings import TWILIO_SID, TWILIO_TOKEN, UPLOAD_FOLDER, customers_production, customers_test, users_collection, MAX_CHARACTERS_PER_SEGMENT, COST_PER_SEGMENT
 from web_messaging.blueprints.texting.models import Campaign
 from web_messaging.context import get_twilio_credits
-import traceback
+from config.settings import (TWILIO_SID, 
+                             TWILIO_TOKEN, 
+                             UPLOAD_FOLDER, 
+                             customers_production, 
+                             customers_test, users_collection, 
+                             MAX_CHARACTERS_PER_SEGMENT, 
+                             COST_PER_SEGMENT, 
+                             TWILIO_PHONE_NUMBER)
 
 texting = Blueprint('texting', __name__, template_folder='templates')
-
-@texting.route("/tmp", methods=['GET'])
-def tmp():
-    """ Temporary method - Testing purposes """
-    cp1 = Campaign('ulysse est ggg', 'customers', '37.00', '457', '0')
-    time.sleep(3)
-    cp2 = Campaign('.....', 'test', '2.10', '3', '1')
-    cp3 = Campaign('NON', 'customers', '29.74', '357', '100')
-    time.sleep(5)
-    cp4 = Campaign('dfd', 'customers', '2.14', '4', '0')
-    mongo.db['campaigns'].insert_one(cp1.dict())
-    mongo.db['campaigns'].insert_one(cp2.dict())
-    mongo.db['campaigns'].insert_one(cp3.dict())
-    mongo.db['campaigns'].insert_one(cp4.dict())
-    return "d"
 
 @texting.route("/new-campaign", methods=['GET'])
 @login_required
@@ -77,7 +68,7 @@ def contact(phone, message_body):
     """ Send the text message to a list of recipients  """
     international_number = "+33" + phone
     twilio_client.messages.create( 
-            from_='+33755536282',  
+            from_=TWILIO_PHONE_NUMBER,  
             body=message_body,      
             to= international_number)
     
