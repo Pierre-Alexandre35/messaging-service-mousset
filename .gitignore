@@ -1,5 +1,5 @@
 # passwords and tokens 
-config/
+config/**
 
 # virtualenv folder 
 dev/
