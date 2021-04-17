@@ -4,6 +4,8 @@
 # virtualenv folder 
 dev/
 
+tmp/
+
 config/gcp.json
 
 __pycache__/
