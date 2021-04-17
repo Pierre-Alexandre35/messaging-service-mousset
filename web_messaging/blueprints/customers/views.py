@@ -4,8 +4,11 @@ from web_messaging.blueprints.user.models import User, Anonymous
 from flask_pymongo import pymongo
 from web_messaging.extensions import mongo, login_manager, bc
 from config.settings import customers_production, customers_test
+from web_messaging.blueprints.customers.models import Pagination
+import math
 
 customers = Blueprint('customers', __name__, template_folder='templates')
+ITEMS_PER_PAGE = 3
 
 @customers.route('/test', methods=['GET'])
 @login_required
@@ -17,14 +20,23 @@ def test():
     customers = cursor.sort("Last Name", pymongo.ASCENDING)
     return render_template("clients.html", customers=customers)
 
+
+
 @customers.route('/clients', methods=['GET'])
 @login_required
 def clients():
     """ Client customers list overview page """
     collection = mongo.db[customers_production]
-    cursor = collection.find()
+    number_of_items = collection.count()
+    first_page = 0
+    last_page = math.ceil(number_of_items / ITEMS_PER_PAGE)
+    current_page = int(request.args.get('page'))
+    if not current_page:
+        current_page = 0
+    to_skip = current_page * ITEMS_PER_PAGE
+    cursor = collection.find().skip(to_skip).limit(ITEMS_PER_PAGE)
     customers = cursor.sort("Last Name", pymongo.ASCENDING)
-    return render_template("clients.html", customers=customers)
+    return render_template("clients.html", customers=customers, page=current_page)
 
 @customers.route('/delete/<string:phone>')
 def delete_task(phone):
