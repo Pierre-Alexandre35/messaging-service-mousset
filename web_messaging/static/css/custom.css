@@ -37,3 +37,9 @@ textarea{
     min-width: 100vw;
     margin: auto;
 }
+
+.flag{
+    height: 25px;
+    width: 25px;
+}
+

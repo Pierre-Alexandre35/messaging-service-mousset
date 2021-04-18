@@ -1,11 +1,11 @@
 import math
 
 class Pagination():
-    def __init__(self, total_items, items_per_page, page_range, current_page=0):
+    def __init__(self, total_items, items_per_page, page_range):
         self.total_items = total_items  # total number of article to display in total
         self.items_per_page = items_per_page  # maximum number of article per page
         self.page_range = page_range  # number of previous and next pages to display
-        self.current_page = current_page
+        self.current_page = 0
         self.number_of_pages = math.ceil(
             self.total_items / self.items_per_page)
 
@@ -44,13 +44,25 @@ class Pagination():
                 self.following.insert(i, new_following_page_number)
                 if new_previous_page_number > self.number_of_pages:
                     self.previous.insert(i, new_previous_page_number)
+       
+       
+    def number_of_previous_items(self):
+        """ Sum of all items in all previous pages not including the current page """
+        if self.current_page == 0:
+            return 0
+        return self.items_per_page * self.current_page
 
+    # method call to display elements on the HTML page
     def dict(self):
         return {
             "current_page": self.current_page,
-            "following": self.following,
-            "previous": self.previous,
+            "next_pages": self.following,
+            "previous_pages": self.previous,
             "number_of_pages": self.number_of_pages
         }
+        
+        
+            
+
 
 
