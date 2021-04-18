@@ -8,41 +8,44 @@ import math
 
 customers = Blueprint('customers', __name__, template_folder='templates')
 
-@customers.route('/test', methods=['GET'])
+@customers.route('/clients', methods=['GET'], endpoint="clients")
+@customers.route('/test', methods=['GET'], endpoint="test")
 @login_required
-def test():
+def display_customers_list():
     """ Testing customers list overview page """
-    collection = mongo.db[customers_test]
+    selected_path = str(request.url_rule)
+    if selected_path == '/clients':
+        selected_list = customers_production 
+    else:
+        selected_list = customers_test
+    collection = mongo.db[selected_list]
     collection.find()
     cursor = collection.find()
     customers = cursor.sort("Last Name", pymongo.ASCENDING)
-    return render_template("clients.html", selected_list=customers_test, customers=customers)
+    return render_template("clients.html", selected_list=selected_list, customers=customers, phone_error=None)
 
 
-
-@customers.route('/clients', methods=['GET'])
-@login_required
-def clients():
-    """ Client customers list overview page """
-    collection = mongo.db[customers_production]
-    collection.find()
-    cursor = collection.find()
-    customers = cursor.sort("Last Name", pymongo.ASCENDING)
-    return render_template("clients.html", selected_list=customers_production, customers=customers)
-
-@customers.route('/delete/<string:phone>')
-def delete_task(phone):
-    """ TO FIX  """
+@customers.route('/delete/<string:selected_list>/<string:phone>')
+def delete_task(selected_list, phone):
+    collection = mongo.db[selected_list]
     to_delete = {'Phone': phone}
-    try:
-        mongo.db[customers_test].delete_one(to_delete)
+    collection.delete_one(to_delete)
+    if selected_list == customers_production:
         return redirect("/clients")
-    except Exception as e:
-        return str(e)
+    return redirect("/test")
 
+
+def user_already_exits(collection, new_user):
+    new_user_phone = new_user['Phone']
+    is_already_present =  collection.find_one({ 'Phone': new_user_phone})
+    return is_already_present
+    
 
 def insert_user_to_db(selected_list, new_user):
     collection = mongo.db[selected_list]
+    new_user_phone = new_user['Phone']
+    exists = collection.find_one({ 'Phone': new_user_phone})
+    print(exists)
     collection.insert_one(new_user)
 
 @customers.route('/add-customer/<string:selected_list>', methods=['POST'])
@@ -52,8 +55,13 @@ def create(selected_list):
     first_name = request.form['prenom']
     phone = request.form['phone']
     new_user = {'First Name' : first_name, 'Last Name': last_name, 'Phone' : phone}
-    insert_user_to_db(selected_list, new_user)
-    return redirect("/clients")
+    collection = mongo.db[selected_list]
+    if user_already_exits(collection, new_user):
+        return "alrady exits"
+    
+    if selected_list == customers_production:
+        return redirect("/clients")
+    return redirect("/test")
 
 
     

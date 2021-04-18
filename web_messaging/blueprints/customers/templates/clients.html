@@ -7,6 +7,13 @@
         <input autocomplete="off" name="phone" type="phone" placeholder="telephone">
         <input type="submit" value="ajouter">
     </form>
+    {% if phone_error %}
+    <div id="" class="alert alert-warning alert-dismissible fade show">
+        <strong>Attention!</strong> Le numéro de téléphone {{phone_error}} existe déjà.
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+
     <div class="row">
         <div class="col-md-10 mx-md-auto pt-5">
             <table class='table table-hover'>
@@ -24,7 +31,7 @@
                         <td>{{n['Last Name']}} </td>
                         <td>{{n['First Name']}}</td>
                         <td>{{ n['Phone']}}</td>
-                        <td> <a href="/delete/{{ n['Phone'] }}">Supprimer</a>
+                        <td> <a href="/delete/{{selected_list}}/{{ n['Phone'] }}">Supprimer</a>
                         <td></td>
                     </tr>
                     {% endfor %}
