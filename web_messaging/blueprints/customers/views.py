@@ -18,11 +18,30 @@ def display_customers_list():
         selected_list = customers_production 
     else:
         selected_list = customers_test
+    
+    page_number = 0    
+    if 'page' in request.args:     
+        page_number = int(request.args.get('page'))
     collection = mongo.db[selected_list]
-    collection.find()
-    cursor = collection.find()
+    total_items = collection.count()
+    total_number_pages = math.floor(total_items / ITEMS_PER_PAGE)
+    items_to_skip = page_number * ITEMS_PER_PAGE
+    cursor = collection.find().skip(items_to_skip).limit(ITEMS_PER_PAGE)
     customers = cursor.sort("Last Name", pymongo.ASCENDING)
-    return render_template("clients.html", selected_list=selected_list, customers=customers, phone_error=None)
+    
+    previous_page = page_number - 1 
+    next_page = page_number + 1
+    displayed_previous_page = None
+    displayed_next_page = None
+    if previous_page > 0: 
+        displayed_previous_page = previous_page
+    
+    if next_page < total_number_pages:
+        displayed_next_page = next_page
+        
+        
+
+    return render_template("clients.html", selected_list=selected_list, customers=customers, current_page=page_number, previous_page=displayed_previous_page, next_page=displayed_next_page, first_page=0, last_page=total_number_pages, url_path=selected_path, phone_error=None)
 
 
 @customers.route('/delete/<string:selected_list>/<string:phone>')
@@ -41,16 +60,9 @@ def user_already_exits(collection, new_user):
     return is_already_present
     
 
-def insert_user_to_db(selected_list, new_user):
-    collection = mongo.db[selected_list]
-    new_user_phone = new_user['Phone']
-    exists = collection.find_one({ 'Phone': new_user_phone})
-    print(exists)
-    collection.insert_one(new_user)
-
 @customers.route('/add-customer/<string:selected_list>', methods=['POST'])
 def create(selected_list):
-    """ Create a new User object and insert that new user on the database """    
+    """ Create a new User object and insert that new user on the database """   
     last_name = request.form['nom']
     first_name = request.form['prenom']
     phone = request.form['phone']
@@ -58,7 +70,8 @@ def create(selected_list):
     collection = mongo.db[selected_list]
     if user_already_exits(collection, new_user):
         return "alrady exits"
-    
+    else: 
+        collection.insert_one(new_user)
     if selected_list == customers_production:
         return redirect("/clients")
     return redirect("/test")
