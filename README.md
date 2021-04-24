@@ -7,14 +7,18 @@
 [![codecov](https://codecov.io/gh/Pierre-Alexandre35/messaging-service-mousset/branch/main/graph/badge.svg?token=2O5LYO9M7G)](https://codecov.io/gh/Pierre-Alexandre35/messaging-service-mousset)
 
 ## Contents
-- [Instalation ](#Instalation)
+- [Description](#Description)
+- [Project Context](#Project Context)
+- [Instalation](#Instalation)
+- [Architecture](#Architecture)
+- [Change Log](CHANGELOG.md)
 
 
 ## Description
 Platform to send text messages to individuals or groups of customers in 1 click.
 
 
-## Context
+## Project Context
 My parents have a small retail business and they are storing informations about their customers on a small Microsoft Excel file. Since 2018, they are doing 2 to 3 SMS text message marketing campaigns every year. They have 2 issues:
 1) They could not send +1,000 text messages with a single phone. They had to use multiple phones which was not really reliable. 
 2) It took them multiple hours for each campaigns to text every customers. 
