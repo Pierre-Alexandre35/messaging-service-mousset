@@ -6,6 +6,9 @@
 
 [![codecov](https://codecov.io/gh/Pierre-Alexandre35/messaging-service-mousset/branch/main/graph/badge.svg?token=2O5LYO9M7G)](https://codecov.io/gh/Pierre-Alexandre35/messaging-service-mousset)
 
+## Contents
+- [Instalation ](#Instalation)
+
 
 ## Description
 Platform to send text messages to individuals or groups of customers in 1 click.
