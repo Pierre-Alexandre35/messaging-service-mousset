@@ -8,8 +8,8 @@
 
 ## Contents
 - [Description](#Description)
-- [Project Context](#Project Context)
-- [Instalation](#Instalation)
+- [Project Context](#Project-Context)
+- [Installation](#Installation)
 - [Architecture](#Architecture)
 - [Change Log](CHANGELOG.md)
 
@@ -25,7 +25,7 @@ My parents have a small retail business and they are storing informations about 
 
 We had to build a easy-to-use tool for them to let them text their customers in one click. 
 
-## Instalation 
+## Installation 
 ```git clone```
 <br>
 
