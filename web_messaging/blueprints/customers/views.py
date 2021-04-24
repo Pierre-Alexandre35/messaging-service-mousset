@@ -4,96 +4,48 @@ from web_messaging.blueprints.user.models import User, Anonymous
 from flask_pymongo import pymongo
 from web_messaging.extensions import mongo, login_manager, bc
 from config.settings import ITEMS_PER_PAGE, customers_production, customers_test
+from web_messaging.blueprints.customers.pagination import generate_pagination
+from web_messaging.blueprints.customers.customer import create_customer, delete_customer, user_already_exits
 import math
+
 
 customers = Blueprint('customers', __name__, template_folder='templates')
 
+
+def get_selected_path(selected_path):
+    if str(selected_path) == '/clients':
+        return customers_production
+    return customers_test
+        
 @customers.route('/clients', methods=['GET'], endpoint="clients")
 @customers.route('/test', methods=['GET'], endpoint="test")
 @login_required
 def display_customers_list():
     """ Testing customers list overview page """
-    selected_path = str(request.url_rule)
-    if selected_path == '/clients':
-        selected_list = customers_production 
-    else:
-        selected_list = customers_test
-    
-    page_number = 0    
-    if 'page' in request.args:     
+    selected_path = request.url_rule
+    selected_customer_list = get_selected_path(selected_path)
+    page_number = 0
+    if 'page' in request.args:
         page_number = int(request.args.get('page'))
-    collection = mongo.db[selected_list]
-    total_items = collection.count()
-    total_number_pages = math.floor(total_items / ITEMS_PER_PAGE)
-    items_to_skip = page_number * ITEMS_PER_PAGE
-    cursor = collection.find().skip(items_to_skip).limit(ITEMS_PER_PAGE)
-    customers = cursor.sort("Last Name", pymongo.ASCENDING)
-    
-    previous_page = page_number - 1 
-    next_page = page_number + 1
-    displayed_previous_page = None
-    displayed_next_page = None
-    if previous_page > 0: 
-        displayed_previous_page = previous_page
-    
-    if next_page < total_number_pages:
-        displayed_next_page = next_page
-        
-        
-
-    return render_template("clients.html", selected_list=selected_list, customers=customers, current_page=page_number, previous_page=displayed_previous_page, next_page=displayed_next_page, first_page=0, last_page=total_number_pages, url_path=selected_path, phone_error=None)
+    customers, pagination = generate_pagination(page_number, selected_customer_list)
+    return render_template("clients.html", selected_list=selected_customer_list, customers=customers, pagination=pagination, url_path=selected_path, phone_error=None)
 
 
 @customers.route('/delete/<string:selected_list>/<string:phone>')
-def delete_task(selected_list, phone):
-    collection = mongo.db[selected_list]
-    to_delete = {'Phone': phone}
-    collection.delete_one(to_delete)
+def delete(selected_list, phone):
+    delete_customer(selected_list, phone)
     if selected_list == customers_production:
         return redirect("/clients")
     return redirect("/test")
 
-
-def user_already_exits(collection, new_user):
-    new_user_phone = new_user['Phone']
-    is_already_present =  collection.find_one({ 'Phone': new_user_phone})
-    return is_already_present
-    
 
 @customers.route('/add-customer/<string:selected_list>', methods=['POST'])
 def create(selected_list):
-    """ Create a new User object and insert that new user on the database """   
+    """ Create a new User object and insert that new user on the database """
     last_name = request.form['nom']
     first_name = request.form['prenom']
     phone = request.form['phone']
-    new_user = {'First Name' : first_name, 'Last Name': last_name, 'Phone' : phone}
-    collection = mongo.db[selected_list]
-    if user_already_exits(collection, new_user):
-        return "alrady exits"
-    else: 
-        collection.insert_one(new_user)
+    create_customer(first_name, last_name, phone, selected_list)
     if selected_list == customers_production:
         return redirect("/clients")
     return redirect("/test")
-
-
-    
-    
-    
-'''
-@customers.route('/clients', methods=['GET'])
-@login_required
-def clients():
-    """ Client customers list overview page """
-    page = request.args.get(key='page', default=0)
-    collection = mongo.db[customers_production]
-    number_of_items = collection.count()
-    client_pagination = Pagination(number_of_items, ITEMS_PER_PAGE, 3)
-    items_to_skip = client_pagination.number_of_previous_items()
-    cursor = collection.find().skip(items_to_skip).limit(ITEMS_PER_PAGE)
-    cursor = collection.find()
-    customers = cursor.sort("Last Name", pymongo.ASCENDING)
-    page_data = client_pagination.dict()
-
-    return render_template("clients.html", selected_list='customers_production', customers=customers)
-'''
