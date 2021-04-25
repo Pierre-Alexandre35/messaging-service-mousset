@@ -27,7 +27,7 @@ Platform to send text messages to individuals or groups of customers in 1 click.
 
 ## Architecture
 
-![alt text](docs/architecture_v01.png)
+![alt text](docs/architecture.png)
 <br />
 - Front-End: Jinja2 / Bootstrap / HTML
 - Back-End: Flask / Python 
