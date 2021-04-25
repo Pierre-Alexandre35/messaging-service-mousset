@@ -1,4 +1,4 @@
-# Text Messages Automation Tool 📱
+# SMS marketing platform 📱
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -8,22 +8,36 @@
 
 ## Contents
 - [Description](#Description)
+- [Architecture](#Architecture)
+- [Project Context](#Project-Context)
 - [Project Context](#Project-Context)
 - [Installation](#Installation)
-- [Architecture](#Architecture)
 - [Change Log](CHANGELOG.md)
 
 
 ## Description
-Platform to send text messages to individuals or groups of customers in 1 click.
+Platform to send text messages to individuals or groups of customers in 1 click. Features:
+- Create "customers" groups (uk-customers, young-customers, ...)
+- Add, remove, modify a customer to the database 
+- Instant and accurate campaign cost estimating 
+- Live Twilio account balance ($)
+- Overview of all previous campaigns (delivery status, message content, cost, date)
+- Consult and download your Twilio bills 
 
 
 ## Project Context
-My parents have a small retail business and they are storing informations about their customers on a small Microsoft Excel file. Since 2018, they are doing 2 to 3 SMS text message marketing campaigns every year. They have 2 issues:
-1) They could not send +1,000 text messages with a single phone. They had to use multiple phones which was not really reliable. 
-2) It took them multiple hours for each campaigns to text every customers. 
+My parents own a small clothes shop in a tinny village in France. Since 2018, they are reaching their customers with text-message marketing campaigns. Howvwer, they had to face a lot of different problems that this app is trying to solve:
+1) Limited: most mobile service providers are limiting the number of recipients for texting (often to 200 per month)
+2) Time-consuming: it took my parents few hours to text their 800 customers and figure out which recipients did not get the message due to limitations
+3) Unsecured: the only place where they had customer-related informations stored was a single Android smarphone. What about if they lose it? 
 
-We had to build a easy-to-use tool for them to let them text their customers in one click. 
+My goal was to build a easy-to-use tool for them to let them text their customers in one click and set up a "real" database:
+- I exported Android contacts to .csv using Coolmuster Android Assistant
+- Built a small ETL (Extract, Transform, Load) pipeline in Python to load data from .csv to MongoDB 
+- Created a Flask / Python app to display all records (customers) from the database 
+- Set up a Twilio business account and obtain a french phone number (+33) with SMS capacity
+- Created a endpoint with a html-form to send a text-message to every users using Twilio Messaging API 
+
 
 ## Installation 
 ```git clone```
@@ -42,6 +56,9 @@ We had to build a easy-to-use tool for them to let them text their customers in 
 
 
 ## Architecture
+
+![alt text](docs/architecture_v01.png)
+<br />
 - Front-End: Jinja2 / Bootstrap / HTML
 - Back-End: Flask / Python 
 - Database: MongoDB 
