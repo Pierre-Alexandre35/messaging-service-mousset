@@ -10,7 +10,6 @@
 - [Description](#Description)
 - [Architecture](#Architecture)
 - [Project Context](#Project-Context)
-- [Project Context](#Project-Context)
 - [Installation](#Installation)
 - [Change Log](CHANGELOG.md)
 
@@ -23,6 +22,19 @@ Platform to send text messages to individuals or groups of customers in 1 click.
 - Live Twilio account balance ($)
 - Overview of all previous campaigns (delivery status, message content, cost, date)
 - Consult and download your Twilio bills 
+
+
+
+## Architecture
+
+![alt text](docs/architecture_v01.png)
+<br />
+- Front-End: Jinja2 / Bootstrap / HTML
+- Back-End: Flask / Python 
+- Database: MongoDB 
+- Hosting: Cloud Run (Google)
+
+
 
 
 ## Project Context
@@ -53,16 +65,6 @@ My goal was to build a easy-to-use tool for them to let them text their customer
 <br>
 
 ```flask run```
-
-
-## Architecture
-
-![alt text](docs/architecture_v01.png)
-<br />
-- Front-End: Jinja2 / Bootstrap / HTML
-- Back-End: Flask / Python 
-- Database: MongoDB 
-- Hosting: Cloud Run (Google)
 
 
 ## Roadmap
