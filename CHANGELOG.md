@@ -47,6 +47,17 @@ function updateMessage(body, SegmentCharactersLimit) {
 - Blling GCS
 
 
+20/04
+- Create multiple env and multiple db/twilio account for a demo
+
+
+25/04
+- Pagination
+-moved customers and paginations methods from routes.py to pagination.oy and customer.py"
+
+
+9/05
+- Script to deploy automaticly the app on Google Cloud Run
 
 TODO
 - Add NULL for campaigns cost
