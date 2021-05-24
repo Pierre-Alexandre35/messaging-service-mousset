@@ -2,12 +2,13 @@ import os
 from dotenv import load_dotenv
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__))
-load_dotenv(os.path.join(BASEDIR, 'environments/demo.env'))
+load_dotenv(os.path.join(BASEDIR, 'environments/production.env'))
 
 # Flask settings 
 DEBUG = True
 PYTHONDONTWRITEBYTECODE=1
 FLASK_SECRET = os.getenv('FLASK_SECRET')
+DOMAIN_NAME = os.getenv('DOMAIN_NAME')
 
 # Twilio - Credentials
 TWILIO_SID = os.getenv('TWILIO_SID')
@@ -27,7 +28,7 @@ MONGO_URI = os.getenv('MONGO_URI')
 customers_production = 'customers_production'
 customers_test = 'customers_test'
 users_collection = 'users'
-ITEMS_PER_PAGE = 4
+ITEMS_PER_PAGE = 20
 
 # Google Cloud - Google Cloud Storage 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv('GOOGLE_CLOUD_STORAGE_AUTH') 

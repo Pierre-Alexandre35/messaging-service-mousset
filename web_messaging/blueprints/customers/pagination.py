@@ -25,8 +25,12 @@ def get_pagination(current_page_number, total_number_pages):
         "current-page": current_page_number,
         "next-page": displayed_next_page,
         "last-page": total_number_pages
-    }
+    }    
     
+def get_number_of_records(selected_customer_list):
+    collection = mongo.db[selected_customer_list]
+    total_items = collection.count()
+    return total_items
     
 def generate_pagination(requested_page_number, selected_customer_list):
     collection = mongo.db[selected_customer_list]

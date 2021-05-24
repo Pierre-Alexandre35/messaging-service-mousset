@@ -53,11 +53,16 @@ function updateMessage(body, SegmentCharactersLimit) {
 
 25/04
 - Pagination
--moved customers and paginations methods from routes.py to pagination.oy and customer.py"
+- Moved customers and paginations methods from routes.py to pagination.oy and customer.py"
 
 
 9/05
 - Script to deploy automaticly the app on Google Cloud Run
+
+
+22/05
+- Added domain name of the pagination (SEO friendly way)
+- Display the number of customers of the cusomters tab
 
 TODO
 - Add NULL for campaigns cost

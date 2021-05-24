@@ -3,14 +3,28 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from web_messaging.blueprints.user.models import User, Anonymous
 from flask_pymongo import pymongo
 from web_messaging.extensions import mongo, login_manager, bc
-from config.settings import ITEMS_PER_PAGE, customers_production, customers_test
-from web_messaging.blueprints.customers.pagination import generate_pagination
+from config.settings import ITEMS_PER_PAGE, DOMAIN_NAME, customers_production, customers_test
+from web_messaging.blueprints.customers.pagination import generate_pagination, get_number_of_records
 from web_messaging.blueprints.customers.customer import create_customer, delete_customer, user_already_exits
 import math
+import re
 
 
 customers = Blueprint('customers', __name__, template_folder='templates')
 
+@customers.route("/search", methods=['GET', 'POST'])
+def search():
+    selected_customer_list = 'customers_production'
+    field = "Last Name"
+    input_text = request.json['input_text'] 
+    collection = mongo.db[selected_customer_list]
+    regx = re.compile("^({})".format(input_text), re.IGNORECASE)
+    rows = collection.find({field: regx})
+    for item in rows:
+        print(item)
+    return str(rows.count())
+    
+    
 
 def get_selected_path(selected_path):
     if str(selected_path) == '/clients':
@@ -28,7 +42,8 @@ def display_customers_list():
     if 'page' in request.args:
         page_number = int(request.args.get('page'))
     customers, pagination = generate_pagination(page_number, selected_customer_list)
-    return render_template("clients.html", selected_list=selected_customer_list, customers=customers, pagination=pagination, url_path=selected_path, phone_error=None)
+    total_number_of_records = get_number_of_records(selected_customer_list)
+    return render_template("clients.html", domain_name= DOMAIN_NAME, selected_customer_list=selected_customer_list, customers=customers, pagination=pagination, url_path=selected_path, total_number_of_records=total_number_of_records, phone_error=None)
 
 
 @customers.route('/delete/<string:selected_list>/<string:phone>')

@@ -14,6 +14,7 @@ class Bill():
         self.path_to_gcs = path_to_gcs
         self.set_total_cost_eur()
         
+        
     def dict(self):
         return {
         "date" : self.date,
@@ -23,9 +24,11 @@ class Bill():
         "path_to_gcs" : self.path_to_gcs
         }
         
+        
     def set_total_cost_eur(self):
         total_cost_eur = self.total_cost_usd * 0.85
         self.total_cost_eur =  total_cost_eur
+    
     
     def upload_to_gcs(self):
         local_path = upload_file_to_temporary_folder(self.file, self.filename)
