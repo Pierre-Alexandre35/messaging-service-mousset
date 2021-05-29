@@ -64,6 +64,14 @@ function updateMessage(body, SegmentCharactersLimit) {
 - Added domain name of the pagination (SEO friendly way)
 - Display the number of customers of the cusomters tab
 
+
+29/05
+- Added front-end validation when adding a new user (following an incredible JS tutorial available [here](https://www.javascripttutorial.net/javascript-dom/javascript-form-validation/))
+
+
+
+
+
 TODO
 - Add NULL for campaigns cost
 - Button refresh sur campaigns 

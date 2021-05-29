@@ -5,9 +5,9 @@
 <div class="container">
 
     <form class="customer-form" action="/add-customer/{{selected_list}}" method="POST">
-        <input autocomplete="off" name="nom" type="text" placeholder="nom">
-        <input autocomplete="off" name="prenom" type="text" placeholder="prenom">
-        <input autocomplete="off" name="phone" type="phone" placeholder="telephone">
+        <input autocomplete="off" id="first-name-input" name="nom" type="text" placeholder="nom">
+        <input autocomplete="off" id="last-name-input" name="prenom" type="text" placeholder="prenom">
+        <input autocomplete="off" id="phone-input" name="phone" type="phone" placeholder="telephone">
         <input type="submit" value="ajouter">
     </form>
     {% if phone_error %}
@@ -18,28 +18,7 @@
     </div>
     {% endif %}
 
-    <div class="dropdown">
 
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-          <li><a class="dropdown-item" value="Last Name" selected="selected" href="#">Nom de famille</a></li>
-          <li><a class="dropdown-item" value="First Name"href="#">Prénom</a></li>
-          <li><a class="dropdown-item" value="Phone" href="#">Numéro</a></li>
-        </ul>
-      </div>
-
-      <select name="user-search-field" id="user-search-field">
-        <option value="Last Name" selected="selected" >Last Name</option>
-        <option value="First Name">First Name</option>
-        <option value="Phone">Phone</option>
-      </select>
-      
-    <div class="form-check">
-        {% block form %}
-        <textarea name="body" oninput="searchUser(this, '{{selected_customer_list}}')" id="form10"
-          class="md-textarea form-control" rows="3"></textarea>
-        {% endblock %}
-
-      </div>
 
 
     <div class="row">
@@ -96,4 +75,5 @@
 {% endblock %}
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/search-customer.js') }}"></script>
+<script src="{{ url_for('static', filename='js/add-customer.js') }}"></script>
 {% endblock %}

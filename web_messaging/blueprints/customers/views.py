@@ -11,19 +11,6 @@ import re
 
 
 customers = Blueprint('customers', __name__, template_folder='templates')
-
-@customers.route("/search", methods=['GET', 'POST'])
-def search():
-    selected_customer_list = 'customers_production'
-    field = "Last Name"
-    input_text = request.json['input_text'] 
-    collection = mongo.db[selected_customer_list]
-    regx = re.compile("^({})".format(input_text), re.IGNORECASE)
-    rows = collection.find({field: regx})
-    for item in rows:
-        print(item)
-    return str(rows.count())
-    
     
 
 def get_selected_path(selected_path):
