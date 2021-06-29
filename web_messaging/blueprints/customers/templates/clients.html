@@ -2,9 +2,9 @@
 {% block body %}
 {% set another = testing %}
 
-<div class="container">
 
-    <form class="customer-form" action="/add-customer/{{selected_list}}" method="POST">
+<div class="container">
+    <form class="customer-form" action="/add-customer/{{selected_customer_list}}" method="POST">
         <input autocomplete="off" id="first-name-input" name="nom" type="text" placeholder="nom">
         <input autocomplete="off" id="last-name-input" name="prenom" type="text" placeholder="prenom">
         <input autocomplete="off" id="phone-input" name="phone" type="phone" placeholder="telephone">
@@ -38,7 +38,7 @@
                         <td>{{n['Last Name']}} </td>
                         <td>{{n['First Name']}}</td>
                         <td>{{ n['Phone']}}</td>
-                        <td> <a href="/delete/{{selected_list}}/{{ n['Phone']
+                        <td> <a href="/delete/{{selected_customer_list}}/{{ n['Phone']
                                 }}">Supprimer</a>
                         <td></td>
                     </tr>

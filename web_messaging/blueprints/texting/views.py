@@ -66,7 +66,7 @@ def call():
     message = request.form['body']
     selected_list = request.form['list']
     #TO FIX
-    return text_customers(message)
+    return text_test(message)
 
 
 def contact(phone, message_body):

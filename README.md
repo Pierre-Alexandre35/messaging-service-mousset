@@ -58,7 +58,7 @@ My goal was to build a easy-to-use tool for them to let them text their customer
 ```virtualenv dev-env```
 <br>
 
-```pip3 -r install requirements.txt```
+```pip3 install -r requirements.txt```
 <br>
 
 ```export FLASK_APP=web_messaging/app.py```
@@ -94,3 +94,6 @@ docker-compose up --build
 docker tag 52e6159b6b13 gcr.io/mousset005/zoro
 gcloud auth configure-docker
 docker push gcr.io/mousset005/zoro
+
+
+06 00 00 00 00
