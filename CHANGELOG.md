@@ -62,14 +62,21 @@ function updateMessage(body, SegmentCharactersLimit) {
 
 22/05
 - Added domain name of the pagination (SEO friendly way)
-- Display the number of customers of the cusomters tab
+- Displayed the number of customers of the cusomters tab
 
 
 29/05
 - Added front-end validation when adding a new user (following an incredible JS tutorial available [here](https://www.javascripttutorial.net/javascript-dom/javascript-form-validation/))
+- Fixed a minor bug (typo) to delete a customer 
+
+
+29/06
+- Fixed the technical documentation (typo)
+- Fixed a duplication issue when adding a new user in the customers list 
 
 
 
+- Aubry 0668584780
 
 
 TODO
