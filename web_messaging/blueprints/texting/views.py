@@ -5,6 +5,8 @@ from web_messaging.extensions import twilio_client, currency_converter, mongo, l
 import sys
 import math
 import time
+import re 
+import string
 import traceback
 from urllib.parse import urlparse, urljoin
 from web_messaging.blueprints.texting.models import Campaign
@@ -65,8 +67,10 @@ def call():
     """ Launch a new texting-campaign  """
     message = request.form['body']
     selected_list = request.form['list']
-    #TO FIX
+    if selected_list == 'production-list':
+        return text_customers(message)
     return text_test(message)
+
 
 
 def contact(phone, message_body):
@@ -77,6 +81,11 @@ def contact(phone, message_body):
         body=message_body,
         to=international_number)
 
+def validate_phone(phone):
+    if re.match("^[0-9]{10}$", phone) and phone.startswith(('06', '07')):
+        return True
+    return False
+  
 
 def text_customers(message):
     """ Send a text-message to all customers-customers  """
@@ -136,4 +145,3 @@ def total_cost_estimation(quantity, input_length):
     estimated_cost_per_sms = number_of_segments * COST_PER_SEGMENT
     total_estimated_cost = estimated_cost_per_sms * quantity
     return round(total_estimated_cost, 2)
-
