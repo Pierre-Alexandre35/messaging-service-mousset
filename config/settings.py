@@ -31,7 +31,6 @@ users_collection = 'users'
 ITEMS_PER_PAGE = 20
 
 # Google Cloud - Google Cloud Storage 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.getenv('GOOGLE_CLOUD_STORAGE_AUTH') 
 GCS_BILLING_BUCKET = os.getenv('GCS_BUCKET_BILLING') 
 
 # Local Storage - Temporary files 

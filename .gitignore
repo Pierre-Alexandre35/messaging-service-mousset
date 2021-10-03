@@ -1,5 +1,6 @@
 # passwords and tokens 
-**.env
+**production.env
+**test.env
 **/gcp.json
 
 # virtualenv folder 
