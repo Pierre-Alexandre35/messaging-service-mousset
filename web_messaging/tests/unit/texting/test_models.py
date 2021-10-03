@@ -12,6 +12,5 @@ def test_validate_phone_two():
 def test_too_long_phone():
     assert False == validate_phone('06241803144')
 
-
 def test_invalid_phone_digit():
     assert False == validate_phone('0989764555')
