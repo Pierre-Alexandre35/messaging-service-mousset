@@ -52,17 +52,38 @@ My goal was to build a easy-to-use tool for them to let them text their customer
 
 
 ## Installation 
-```git clone```
+
+1. Clone repository
+
+```git clone https://github.com/Pierre-Alexandre35/messaging-service-mousset```
 <br>
+
+2. Create an isolated virtual python environment
 
 ```virtualenv dev-env```
 <br>
 
+3. Install project dependencies
+
 ```pip3 install -r requirements.txt```
 <br>
 
-```export FLASK_APP=web_messaging/app.py```
-<br>
+
+4. Set up your environment configuration
+
+Open ```config/environments/demo.env``` and load the 4 required environment variables
+
+
+| variable  | description | example |
+| ------------- |:-------------:|:-------------|
+| MONGO_URI | Connection string between app and MongoDB |```mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.fut2y.mongodb.net/```<br>```<DATABASE>?ssl=true&ssl_cert_reqs=CERT_NONE```
+| TWILIO_SID     | Twilio 34-digit Application SID     | link
+| TWILIO_TOKEN      | Twilio auth token     | link 
+| FLASK_SECRET      | Flask secret for session management     | any string 
+
+
+
+4. Run your application
 
 ```flask run```
 
