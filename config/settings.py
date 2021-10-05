@@ -5,6 +5,7 @@ BASEDIR = os.path.abspath(os.path.dirname(__file__))
 load_dotenv(os.path.join(BASEDIR, 'environments/production.env'))
 
 # Flask settings 
+FLASK_APP = 'web_messaging/app.py'
 DEBUG = True
 PYTHONDONTWRITEBYTECODE=1
 FLASK_SECRET = os.getenv('FLASK_SECRET')
