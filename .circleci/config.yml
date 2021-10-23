@@ -1,8 +1,18 @@
 version: 2.1
-orbs:
-  gcp-gcr: circleci/gcp-gcr@0.6.1
-  cloudrun: circleci/gcp-cloud-run@1.0.0
 jobs:
+  build_and_deploy:     
+    docker:
+        - image: google/cloud-sdk:slim
+    steps:
+      - checkout
+      - run: 
+          name: Deploy Docs
+          command: |
+            echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
+            gcloud auth activate-service-account --key-file=/tmp/sa_key.json
+            rm /tmp/sa_key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
   build_test:
     docker:
       - image: circleci/python:3.7.4
@@ -14,15 +24,10 @@ jobs:
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
             pip install --user -r requirements.txt
       - run:
-          name: Gcloud
-          command: |
-            echo ${GCLOUD_SERVICE_ACCOUNT} > /tmp/sa_key.json \
-            gcloud auth activate-service-account --key-file=-
-            gcloud config set project vetements-mousset-313116
-      - run:
           name: Run Tests
           command: |
             pytest
+
   build_push_image_cloud_run_mangaged:
     docker:
       - image: circleci/python:3.7.4
