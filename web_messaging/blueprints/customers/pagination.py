@@ -1,9 +1,9 @@
 import math
+
 from flask_pymongo import pymongo
 
-
-from web_messaging.extensions import mongo
 from config.settings import ITEMS_PER_PAGE
+from web_messaging.extensions import mongo
 
 
 def get_pagination(current_page_number, total_number_pages):

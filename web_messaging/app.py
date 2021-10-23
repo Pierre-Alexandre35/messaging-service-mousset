@@ -1,10 +1,11 @@
 from flask import Flask, render_template
-from web_messaging.blueprints.user import user
-from web_messaging.blueprints.texting import texting
-from web_messaging.blueprints.customers import customers
+
 from web_messaging.blueprints.billing import billing
-from web_messaging.extensions import login_manager, mongo, bc
+from web_messaging.blueprints.customers import customers
+from web_messaging.blueprints.texting import texting
+from web_messaging.blueprints.user import user
 from web_messaging.context import inject_credit
+from web_messaging.extensions import bc, login_manager, mongo
 
 
 def register_blueprints(app):

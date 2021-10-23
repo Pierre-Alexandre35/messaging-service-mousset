@@ -1,13 +1,12 @@
 import sys
-from flask import Blueprint, render_template, request, redirect, url_for, abort
-from flask_login import login_user, logout_user, login_required, current_user
-from urllib.parse import urlparse, urljoin
+from urllib.parse import urljoin, urlparse
 
+from flask import Blueprint, abort, redirect, render_template, request, url_for
+from flask_login import current_user, login_required, login_user, logout_user
 
 from config.settings import users_collection
-from web_messaging.extensions import mongo, login_manager, bc
-from web_messaging.blueprints.user.models import User, Anonymous
-
+from web_messaging.blueprints.user.models import Anonymous, User
+from web_messaging.extensions import bc, login_manager, mongo
 
 user = Blueprint('user', __name__, template_folder='templates')
 login_manager.anonymous_user = Anonymous

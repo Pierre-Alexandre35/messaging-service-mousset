@@ -1,15 +1,11 @@
-from flask import Blueprint, render_template, request, redirect
+from flask import Blueprint, redirect, render_template, request
 from flask_login import login_required
 
-
 from config.settings import DOMAIN_NAME, customers_production, customers_test
+from web_messaging.blueprints.customers.customer import (create_customer,
+                                                         delete_customer)
 from web_messaging.blueprints.customers.pagination import (
-    generate_pagination,
-    get_number_of_records)
-from web_messaging.blueprints.customers.customer import (
-    create_customer,
-    delete_customer)
-
+    generate_pagination, get_number_of_records)
 
 customers = Blueprint('customers', __name__, template_folder='templates')
 

@@ -1,4 +1,4 @@
-from web_messaging.extensions import twilio_client, currency_converter
+from web_messaging.extensions import currency_converter, twilio_client
 
 
 def get_twilio_credits():

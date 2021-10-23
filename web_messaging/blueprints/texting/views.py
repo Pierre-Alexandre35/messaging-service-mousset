@@ -1,22 +1,17 @@
 import math
-import time
 import re
+import time
 import traceback
-from flask import Blueprint, render_template, request, jsonify
+
+from flask import Blueprint, jsonify, render_template, request
 from flask_login import login_required
 
-
-from web_messaging.extensions import twilio_client, mongo
+from config.settings import (COST_PER_SEGMENT, MAX_CHARACTERS_PER_SEGMENT,
+                             TWILIO_PHONE_NUMBER, customers_production,
+                             customers_test)
 from web_messaging.blueprints.texting.models import Campaign
 from web_messaging.context import get_twilio_credits
-from config.settings import (
-    customers_production,
-    customers_test,
-    MAX_CHARACTERS_PER_SEGMENT,
-    COST_PER_SEGMENT,
-    TWILIO_PHONE_NUMBER
-)
-
+from web_messaging.extensions import mongo, twilio_client
 
 texting = Blueprint('texting', __name__, template_folder='templates')
 

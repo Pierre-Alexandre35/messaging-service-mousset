@@ -1,8 +1,6 @@
 from web_messaging.blueprints.billing.storage import (
-    upload_file_to_temporary_folder,
-    upload_file_to_gcp,
-    delete_file_from_temporary_folder
-)
+    delete_file_from_temporary_folder, upload_file_to_gcp,
+    upload_file_to_temporary_folder)
 
 
 class Bill():

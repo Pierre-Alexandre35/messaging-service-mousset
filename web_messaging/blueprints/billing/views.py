@@ -1,18 +1,11 @@
+from flask import (Blueprint, redirect, render_template, request, send_file,
+                   url_for)
 from flask_login import login_required
 from flask_pymongo import pymongo
-from flask import (
-    Blueprint,
-    render_template,
-    request, redirect,
-    url_for,
-    send_file
-)
-
 
 from web_messaging.blueprints.billing.models import Bill
 from web_messaging.blueprints.billing.storage import retrieve_file_from_bucket
 from web_messaging.extensions import mongo
-
 
 billing = Blueprint('billing', __name__, template_folder='templates')
 
