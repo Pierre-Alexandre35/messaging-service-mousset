@@ -32,8 +32,8 @@ Platform to send text messages to individuals or groups of customers in 1 click.
 - Front-End: Jinja2 / Bootstrap / HTML
 - Back-End: Flask / Python 
 - Database: MongoDB 
-- Hosting: Cloud Run (Google)
-
+- Hosting: Cloud Run (Google Cloud Platform)
+- CI/CD: CircleCI
 
 
 
@@ -79,6 +79,7 @@ Open ```config/environments/demo.env``` and load the 4 required environment vari
 | MONGO_URI | Connection string between app and MongoDB |```mongodb+srv://<USERNAME>:<PASSWORD>@cluster0.fut2y.mongodb.net/```<br>```<DATABASE>?ssl=true&ssl_cert_reqs=CERT_NONE```
 | TWILIO_SID     | Twilio 34-digit Application SID     | link
 | TWILIO_TOKEN      | Twilio auth token     | link 
+| TWILIO_PHONE_NUMBER      | Twilio international phone number    | +33750218304
 | FLASK_SECRET      | Flask secret for session management     | any string 
 
 
