@@ -95,27 +95,7 @@ Open ```config/environments/demo.env``` and load the 4 required environment vari
 - Stronger forms validators to add a new customer 
 
 
-# Tout ce qui va changer dun environmenet a lautre --> .env et tout ce qui est fixe setting
 
-
+## Others
 https://github.com/chriswilson1982/flask-mongo-app
 https://github.com/punkdata/python-flask/blob/master/.circleci/config.yml
-
-
-gunicorn --workers=2 'web_messaging.app:create_app()'
-
-
-
-
-docker build -t helloworld .
-docker run -p 8080:8080 -it helloworld
-sudo docker stop $(sudo docker ps -aq)
-
-
-docker-compose up --build
-docker tag 52e6159b6b13 gcr.io/mousset005/zoro
-gcloud auth configure-docker
-docker push gcr.io/mousset005/zoro
-
-
-06 00 00 00 00
