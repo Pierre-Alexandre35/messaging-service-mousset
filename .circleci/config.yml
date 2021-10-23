@@ -27,7 +27,6 @@ jobs:
       - run:
           name: Build app binary and Docker image
           command: |
-            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV
             echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/gcloud-service-key.json
             echo 'export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)' >> $BASH_ENV
             echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
