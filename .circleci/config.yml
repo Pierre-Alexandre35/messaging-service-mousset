@@ -46,7 +46,8 @@ jobs:
 workflows:
   version: 2
   format:
-    jobs:
+    format_and_test:
+      - format
       - build_and_deploy:
         filters:
           branches:
