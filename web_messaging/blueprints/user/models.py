@@ -1,6 +1,8 @@
 import uuid
 
+
 class User():
+
     def __init__(self, title, first_name, last_name, email, password, id=""):
         self.title = title
         self.first_name = first_name
@@ -11,12 +13,12 @@ class User():
 
     def dict(self):
         return {
-        "id" : self.id,
-        "title" : self.title,
-        "first_name" : self.first_name,
-        "last_name" : self.last_name,
-        "email" : self.email,
-        "password" : self.password
+          "id": self.id,
+          "title": self.title,
+          "first_name": self.first_name,
+          "last_name": self.last_name,
+          "email": self.email,
+          "password": self.password
         }
 
     @property

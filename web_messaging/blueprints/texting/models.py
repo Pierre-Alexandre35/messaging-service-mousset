@@ -1,8 +1,9 @@
 import itertools
 from datetime import datetime
 
+
 class Campaign():
-    
+
     newid = itertools.count()
 
     def __init__(self, message, selected_list, cost, successes, failures):
@@ -13,13 +14,14 @@ class Campaign():
         self.cost = cost
         self.successes = successes
         self.failures = failures
-        
+
     def dict(self):
         return {
-        "id" : self.id,
-        "timestamp" : self.timestamp,
-        "message" : self.message,
-        "selected_list" : self.selected_list,
-        "cost" : self.cost,
-        "successes" : self.successes,
-        "failures" : self.failures }
+          "id": self.id,
+          "timestamp": self.timestamp,
+          "message": self.message,
+          "selected_list": self.selected_list,
+          "cost": self.cost,
+          "successes": self.successes,
+          "failures": self.failures
+          }

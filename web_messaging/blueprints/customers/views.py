@@ -1,23 +1,25 @@
-from flask import Blueprint, render_template, request, jsonify, redirect, url_for
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user
-from web_messaging.blueprints.user.models import User, Anonymous
-from flask_pymongo import pymongo
-from web_messaging.extensions import mongo, login_manager, bc
-from config.settings import ITEMS_PER_PAGE, DOMAIN_NAME, customers_production, customers_test
-from web_messaging.blueprints.customers.pagination import generate_pagination, get_number_of_records
-from web_messaging.blueprints.customers.customer import create_customer, delete_customer, user_already_exits
-import math
-import re
+from flask import Blueprint, render_template, request, redirect
+from flask_login import login_required
+
+
+from config.settings import DOMAIN_NAME, customers_production, customers_test
+from web_messaging.blueprints.customers.pagination import (
+    generate_pagination,
+    get_number_of_records)
+from web_messaging.blueprints.customers.customer import (
+    create_customer,
+    delete_customer)
 
 
 customers = Blueprint('customers', __name__, template_folder='templates')
-    
+
 
 def get_selected_path(selected_path):
     if str(selected_path) == '/clients':
         return customers_production
     return customers_test
-        
+
+
 @customers.route('/clients', methods=['GET'], endpoint="clients")
 @customers.route('/test', methods=['GET'], endpoint="test")
 @login_required
@@ -28,9 +30,17 @@ def display_customers_list():
     page_number = 0
     if 'page' in request.args:
         page_number = int(request.args.get('page'))
-    customers, pagination = generate_pagination(page_number, selected_customer_list)
+    customers, pagination = generate_pagination(
+        page_number, selected_customer_list)
     total_number_of_records = get_number_of_records(selected_customer_list)
-    return render_template("clients.html", domain_name= DOMAIN_NAME, selected_customer_list=selected_customer_list, customers=customers, pagination=pagination, url_path=selected_path, total_number_of_records=total_number_of_records, phone_error=None)
+    return render_template("clients.html",
+                           domain_name=DOMAIN_NAME,
+                           selected_customer_list=selected_customer_list,
+                           customers=customers,
+                           pagination=pagination,
+                           url_path=selected_path,
+                           total_number_of_records=total_number_of_records,
+                           phone_error=None)
 
 
 @customers.route('/delete/<string:selected_list>/<string:phone>')

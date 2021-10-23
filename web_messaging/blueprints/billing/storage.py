@@ -1,7 +1,8 @@
+import os
+
 
 from web_messaging.extensions import gcp_storage
 from config.settings import UPLOAD_FOLDER, GCS_BILLING_BUCKET
-import os
 
 
 def retrieve_file_from_bucket(filename):

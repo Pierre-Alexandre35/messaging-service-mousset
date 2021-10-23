@@ -1,14 +1,17 @@
-from web_messaging.extensions import mongo
 import math
-from config.settings import ITEMS_PER_PAGE
 from flask_pymongo import pymongo
 
+
+from web_messaging.extensions import mongo
+from config.settings import ITEMS_PER_PAGE
+
+
 def get_pagination(current_page_number, total_number_pages):
-    """ 
+    """
     Generate a pagination dictionary given a page number
     :param current_page_number: current page to paginate
-    :param total_number_pages: total number of pages in the current model 
-    :return: dictionary of pagination 
+    :param total_number_pages: total number of pages in the current model
+    :return: dictionary of pagination
     """
     previous_page = current_page_number - 1
     next_page = current_page_number + 1
@@ -25,13 +28,15 @@ def get_pagination(current_page_number, total_number_pages):
         "current-page": current_page_number,
         "next-page": displayed_next_page,
         "last-page": total_number_pages
-    }    
-    
+    }
+
+
 def get_number_of_records(selected_customer_list):
     collection = mongo.db[selected_customer_list]
     total_items = collection.count()
     return total_items
-    
+
+
 def generate_pagination(requested_page_number, selected_customer_list):
     collection = mongo.db[selected_customer_list]
     total_items = collection.count()
@@ -39,4 +44,5 @@ def generate_pagination(requested_page_number, selected_customer_list):
     items_to_skip = requested_page_number * ITEMS_PER_PAGE
     cursor = collection.find().skip(items_to_skip).limit(ITEMS_PER_PAGE)
     all_customers_items = cursor.sort("Last Name", pymongo.ASCENDING)
-    return all_customers_items, get_pagination(requested_page_number, total_number_pages)
+    return all_customers_items, get_pagination(
+        requested_page_number, total_number_pages)
