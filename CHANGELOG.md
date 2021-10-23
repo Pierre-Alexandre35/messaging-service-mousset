@@ -75,8 +75,9 @@ function updateMessage(body, SegmentCharactersLimit) {
 - Fixed a duplication issue when adding a new user in the customers list 
 
 
+23/10
+- Update deploy.sh script to deploy the app on GCP in a cleaner way
 
-- Aubry 0668584780
 
 
 TODO
