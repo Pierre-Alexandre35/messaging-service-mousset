@@ -7,6 +7,10 @@ jobs:
     steps:
       - checkout
       - run:
+          name: Authorize GCloud Command Line Tool
+          command: |
+            echo $GOOGLE_APPLICATION_CREDENTIALS | base64 --decode | gcloud auth activate-service-account --key-file=-
+      - run:
           name: Install Python dependencies
           command: |
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
