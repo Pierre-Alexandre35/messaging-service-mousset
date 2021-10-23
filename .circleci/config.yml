@@ -14,6 +14,12 @@ jobs:
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
             pip install --user -r requirements.txt
       - run:
+          name: Gcloud
+          command: |
+            echo ${GCLOUD_SERVICE_ACCOUNT} > /tmp/sa_key.json \
+            gcloud auth activate-service-account --key-file=-
+            gcloud config set project vetements-mousset-313116
+      - run:
           name: Run Tests
           command: |
             pytest
@@ -27,6 +33,7 @@ jobs:
       - run:
           name: Build app binary and Docker image
           command: |
+            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV
             echo ${GCP_PROJECT_KEY} | base64 --decode --ignore-garbage > $HOME/gcloud-service-key.json
             echo 'export GOOGLE_CLOUD_KEYS=$(cat $HOME/gcloud-service-key.json)' >> $BASH_ENV
             echo 'export TAG=${CIRCLE_SHA1}' >> $BASH_ENV
