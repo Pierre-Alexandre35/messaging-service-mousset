@@ -1,7 +1,7 @@
-
-from web_messaging.extensions import gcp_storage
-from config.settings import UPLOAD_FOLDER, GCS_BILLING_BUCKET
 import os
+
+from config.settings import GCS_BILLING_BUCKET, UPLOAD_FOLDER
+from web_messaging.extensions import gcp_storage
 
 
 def retrieve_file_from_bucket(filename):

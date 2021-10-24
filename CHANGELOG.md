@@ -79,6 +79,9 @@ function updateMessage(body, SegmentCharactersLimit) {
 - Update deploy.sh script to deploy the app on GCP in a cleaner way
 
 
+24/10
+- Added a linter job and a build_and_deploy job on the CI/CD pipeline
+
 
 TODO
 - Add NULL for campaigns cost
