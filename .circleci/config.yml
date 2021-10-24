@@ -48,6 +48,8 @@ workflows:
     jobs:
       - format
       - build_and_deploy:
+        requires:
+            - format
         filters:
           branches:
             only:
