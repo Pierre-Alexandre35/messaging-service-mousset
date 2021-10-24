@@ -49,7 +49,7 @@ workflows:
       - format
       - build_and_deploy:
         requires:
-            - format
+          - format
         filters:
           branches:
             only:
