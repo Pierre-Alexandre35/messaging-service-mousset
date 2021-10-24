@@ -50,6 +50,7 @@ workflows:
   format_and_test:
     jobs:
       - format
+      - checkout
       - codecov/upload
       - build_and_deploy:
         filters:
